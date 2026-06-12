@@ -1,3 +1,35 @@
 on_startup = {
+	events = {
+		mod3.1
+	}
+}
+
+on_yearly_pulse = {
+	events = {
+		mod3.2
+	}
+}
+
+on_adm_development = {
+	
+}
+
+on_dip_development = {
+	
+}
+
+on_mil_development = {
+	
+}
+
+on_adm_exploited = {
+	
+}
+
+on_dip_exploited = {
+
+}
+
+on_mil_exploited = {
 	
 }

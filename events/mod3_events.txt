@@ -1,0 +1,41 @@
+namespace = mod3
+
+# init event
+country_event = {
+	id = mod3.1
+	title = mod3.1.t
+	desc = mod3.1.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		mod3_init_effect = yes
+    }
+	
+	option = {
+		
+	}
+}
+
+# yearly event
+country_event = {
+	id = mod3.2
+	title = mod3.2.t
+	desc = mod3.1.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		mod3_yearly_effect = yes
+    }
+	
+	option = {
+		
+	}
+}

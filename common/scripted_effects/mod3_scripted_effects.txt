@@ -1,4 +1,5 @@
 mod3_init_effect = {
+	mod3_global_variable_init_effect = yes
 	mod3_autonomy_init_effect = yes
 }
 
@@ -6,23 +7,94 @@ mod3_yearly_effect = {
 	mod3_autonomy_yearly_effect = yes
 }
 
+mod3_global_variable_init_effect = {
+	every_owned_province = {
+		# if a province's autonomy - neighbor-province's autonomy is greater than this value then 
+		# it will get an autonomy buff to decrease its autonomy;
+		# also used to initialize autonomy at start of game
+		set_variable = {
+			which = mod3_autonomy_step
+			value = 5
+		}
+
+		# when autonomy is at 100 then local_autonomy = -(this_value); remember to set it in static_modifiers
+		set_variable = {
+			which = mod3_autonomy_gradient
+			value = 2
+		}
+
+	}
+		
+}
+
 mod3_autonomy_init_effect = {
 	export_to_variable = {
-		which = mod3_global_autonomy_modifier
+		which = mod3_global_autonomy
 		value = modifier:global_autonomy
 	}
 	every_owned_province = {
+		export_to_variable = {
+			which = mod3_local_autonomy_at_startup
+			value = trigger_value:local_autonomy
+		}
 		set_variable = {
-			which = mod3_global_autonomy_modifier
+			which = mod3_global_autonomy
 			which = owner
 		}
 		export_to_variable = {
 			which = mod3_local_autonomy
 			value = modifier:local_autonomy
 		}
+		change_variable = {
+			which = mod3_local_autonomy
+			which = mod3_global_autonomy
+		}
+		divide_variable = {
+			which = mod3_local_autonomy
+			which = mod3_autonomy_gradient
+		}
+		if = {
+			# if autonomy is below what we want 
+			# if beyond, it mean that some provinces are set to higher autonomy at startup, so don't change it
+			limit = {
+				check_variable = { which = mod3_local_autonomy value = 0 }
+			}
+			multiply_variable = {
+				which = mod3_local_autonomy
+				value = 100
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 64 } }
+				add_local_autonomy = 64
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 32 } }
+				add_local_autonomy = 32
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 16 } }
+				add_local_autonomy = 16
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 8 } }
+				add_local_autonomy = 8
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 4 } }
+				add_local_autonomy = 4
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 2 } }
+				add_local_autonomy = 2
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 1 } }
+				add_local_autonomy = 1
+			}
+		}
 	}
 }
 
 mod3_autonomy_yearly_effect = {
-	
+
 }
