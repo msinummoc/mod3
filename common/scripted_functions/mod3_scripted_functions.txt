@@ -1,0 +1,13 @@
+can_decrease_autonomy = {
+	condition = {
+		tooltip = "is AI"
+		potential = {
+			owner = {
+				ai = yes
+			}
+		}
+		allow = {
+			always = yes
+		}
+	}
+}

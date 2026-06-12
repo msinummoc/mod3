@@ -102,6 +102,10 @@ city = {
 	local_sailors_modifier = 0.25
 	garrison_growth = 0.05
 	allowed_num_of_manufactories = 1
+
+	# mod3
+	local_autonomy = 1
+	local_development_cost = 1
 }
 
 port = {
@@ -282,6 +286,13 @@ development = {
 	local_amount_of_cawa = 0.125
 	local_amount_of_carolean = 0.1
 	local_amount_of_hussars = 0.01
+
+	# mod3
+	local_autonomy = -0.04
+	local_tax_modifier = 0.03
+	local_production_efficiency = 0.03
+	province_trade_power_modifier = 0.03
+	local_state_maintenance_modifier = 0.1
 }
 
 development_scaled = {
@@ -509,6 +520,8 @@ local_autonomy_multiplicative = {
 }
 
 local_autonomy = {
+	# mod3
+	local_autonomy = -2
 }
 
 local_autonomy_trade_company_multiplicative = {
@@ -994,6 +1007,9 @@ negative_karma = {
 # Multiplied by Development/COUNTRY_DEVELOPMENT_SCALE
 country_development = {
 	horde_unity = -3
+
+	# mod3
+	global_autonomy = 1
 }
 
 # Multiplied by current Legitimacy - 50

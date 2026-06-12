@@ -1,0 +1,28 @@
+mod3_init_effect = {
+	mod3_autonomy_init_effect = yes
+}
+
+mod3_yearly_effect = {
+	mod3_autonomy_yearly_effect = yes
+}
+
+mod3_autonomy_init_effect = {
+	export_to_variable = {
+		which = mod3_global_autonomy_modifier
+		value = modifier:global_autonomy
+	}
+	every_owned_province = {
+		set_variable = {
+			which = mod3_global_autonomy_modifier
+			which = owner
+		}
+		export_to_variable = {
+			which = mod3_local_autonomy
+			value = modifier:local_autonomy
+		}
+	}
+}
+
+mod3_autonomy_yearly_effect = {
+	
+}
