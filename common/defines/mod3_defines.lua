@@ -5,4 +5,5 @@ NDefines.NCountry.PS_IMPROVE_PROVINCE_BASE = 25
 
 NDefines.NEconomy.DECREASE_AUTONOMY_STEP = 0  -- 25
 NDefines.NEconomy.INCREASE_AUTONOMY_STEP = 0  -- 25
+NDefines.NEconomy.CAPITAL_MAX_AUTONOMY = 25 -- 0
 

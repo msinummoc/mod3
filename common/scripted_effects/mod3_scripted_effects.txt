@@ -1,9 +1,26 @@
 mod3_init_effect = {
 	mod3_global_variable_init_effect = yes
 	mod3_autonomy_init_effect = yes
+	set_country_flag = mod3_initialized_flag
 }
 
 mod3_yearly_effect = {
+	if = {
+		limit = {
+			NOT = {
+				has_country_modifier = mod3_governing_capacity_penalty
+			}
+		}
+		add_country_modifier = {
+			name = mod3_governing_capacity_penalty
+			duration = -1
+		}
+	}
+	if = {
+		limit = { NOT = { has_country_flag = mod3_initialized_flag } }
+		mod3_global_variable_init_effect = yes
+		set_country_flag = mod3_initialized_flag
+	}
 	mod3_autonomy_yearly_effect = yes
 }
 
@@ -14,7 +31,7 @@ mod3_global_variable_init_effect = {
 		# also used to initialize autonomy at start of game
 		set_variable = {
 			which = mod3_autonomy_step
-			value = 5
+			value = 10
 		}
 
 		# when autonomy is at 100 then local_autonomy = -(this_value); remember to set it in static_modifiers
@@ -23,6 +40,16 @@ mod3_global_variable_init_effect = {
 			value = 2
 		}
 
+		# autonomy step is added by mod3_terrain_autonomy_factor; notice that this is double, mean that you should add from and to together
+		# so hill to hill is 2 + 2 + 5 = 9
+		# mod3_terrain_variable_init_effect = yes
+
+		# used to moderate the speed of autonomy changes
+		# 0.2 mean -1 autonomy = -0.2 autonomy and +1 autonomy = +0.2 autonomy
+		set_variable = {
+			which = mod3_autonomy_speed_factor
+			value = 0.2
+		}
 	}
 		
 }
@@ -37,6 +64,8 @@ mod3_autonomy_init_effect = {
 			which = mod3_local_autonomy_at_startup
 			value = trigger_value:local_autonomy
 		}
+
+		# set it to what we want
 		set_variable = {
 			which = mod3_global_autonomy
 			which = owner
@@ -66,35 +95,167 @@ mod3_autonomy_init_effect = {
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 64 } }
 				add_local_autonomy = 64
+				subtract_variable = { which = mod3_local_autonomy value = 64 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 32 } }
 				add_local_autonomy = 32
+				subtract_variable = { which = mod3_local_autonomy value = 32 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 16 } }
 				add_local_autonomy = 16
+				subtract_variable = { which = mod3_local_autonomy value = 16 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 8 } }
 				add_local_autonomy = 8
+				subtract_variable = { which = mod3_local_autonomy value = 8 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 4 } }
 				add_local_autonomy = 4
+				subtract_variable = { which = mod3_local_autonomy value = 4 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 2 } }
 				add_local_autonomy = 2
+				subtract_variable = { which = mod3_local_autonomy value = 2 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 1 } }
 				add_local_autonomy = 1
+				subtract_variable = { which = mod3_local_autonomy value = 1 }
+			}
+		}
+	}
+	# than make all provinces like gradient
+	set_variable = { which = mod3_loop value = 5 }
+	every_owned_province = {
+		export_to_variable = {
+			which = mod3_local_autonomy
+			value = trigger_value:local_autonomy
+		}
+	}
+	while = {
+		limit = { check_variable = { which = mod3_loop value = 0 } }
+		subtract_variable = { which = mod3_loop value = 1 }
+		mod3_autonomy_init_loop_effect = yes
+	}
+	mod3_autonomy_speed_effect = yes
+}
+
+mod3_autonomy_yearly_effect = {
+	
+
+}
+
+mod3_terrain_variable_init_effect = {
+	set_variable = { which = mod3_terrain_autonomy_factor value = 3 }
+	if = {
+		limit = { has_terrain = farmlands }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 0 }
+	}
+	else_if = {
+		limit = {has_terrain = forest }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 2 }
+	}
+	else_if = {
+		limit = {has_terrain = hills }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 2 }
+	}
+	else_if = {
+		limit = {has_terrain = desert }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 4 }
+	}
+	else_if = {
+		limit = {has_terrain = woods }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 2 }
+	}
+	else_if = {
+		limit = {has_terrain = grasslands }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 1 }
+	}
+	else_if = {
+		limit = {has_terrain = glacier }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 5 }
+	}
+	else_if = {
+		limit = {has_terrain = coastal_desert }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 4 }
+	}
+	else_if = {
+		limit = {has_terrain = drylands }
+		set_variable = { which = mod3_terrain_autonomy_factor value = 1 }
+	}
+}
+
+mod3_autonomy_init_loop_effect = {
+	every_owned_province = {
+		every_neighbor_province = {
+			limit = {
+				owned_by = ROOT
+			}
+			subtract_variable = {
+				which = mod3_local_autonomy
+				which = mod3_autonomy_step
+			}
+			if = {
+				limit = {
+					check_variable = {
+						which = mod3_local_autonomy
+						which = PREV
+					}
+				}
+				subtract_variable = {
+					which = mod3_local_autonomy
+					which = PREV
+				}
+				if = {
+					limit = { check_variable = { which = mod3_local_autonomy value = 64 } }
+					add_local_autonomy = -64
+					subtract_variable = { which = mod3_local_autonomy value = 64 }
+				}
+				if = {
+					limit = { check_variable = { which = mod3_local_autonomy value = 32 } }
+					add_local_autonomy = -32
+					subtract_variable = { which = mod3_local_autonomy value = 32 }
+				}
+				if = {
+					limit = { check_variable = { which = mod3_local_autonomy value = 16 } }
+					add_local_autonomy = -16
+					subtract_variable = { which = mod3_local_autonomy value = 16 }
+				}
+				if = {
+					limit = { check_variable = { which = mod3_local_autonomy value = 8 } }
+					add_local_autonomy = -8
+					subtract_variable = { which = mod3_local_autonomy value = 8 }
+				}
+				if = {
+					limit = { check_variable = { which = mod3_local_autonomy value = 4 } }
+					add_local_autonomy = -4
+					subtract_variable = { which = mod3_local_autonomy value = 4 }
+				}
+				if = {
+					limit = { check_variable = { which = mod3_local_autonomy value = 2 } }
+					add_local_autonomy = -2
+					subtract_variable = { which = mod3_local_autonomy value = 2 }
+				}
+				if = {
+					limit = { check_variable = { which = mod3_local_autonomy value = 1 } }
+					add_local_autonomy = -1
+					subtract_variable = { which = mod3_local_autonomy value = 1 }
+				}
+			}
+			export_to_variable = {
+				which = mod3_local_autonomy
+				value = trigger_value:local_autonomy
 			}
 		}
 	}
 }
 
-mod3_autonomy_yearly_effect = {
-
+# used to moderate the speed of autonomy changes
+mod3_autonomy_speed_effect = {
+	
 }

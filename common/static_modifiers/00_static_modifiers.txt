@@ -106,12 +106,17 @@ city = {
 	# mod3
 	local_autonomy = 1
 	local_development_cost = 1
+	land_forcelimit = 0.5
+	local_manpower = 0.5
 }
 
 port = {
 	local_institution_spread = 0.10
 	local_has_geobukseon = yes
 	local_has_voc_indiamen = yes
+
+	# mod3
+	local_autonomy = -0.1
 }
 
 in_state = {
@@ -145,7 +150,7 @@ coastal_sea = {
 }
 
 tropical = {
-	local_colonial_growth = -10
+	local_colonial_growth = -100 # -10
 	supply_limit_modifier = -0.3
 	local_hostile_attrition = 2
 
@@ -155,7 +160,7 @@ tropical = {
 }
 
 arctic = {
-	local_colonial_growth = -10
+	local_colonial_growth = -30 # -10
 	supply_limit_modifier = -0.4
 	local_hostile_attrition = 1
 
@@ -166,7 +171,7 @@ arctic = {
 }
 
 arid = {
-	local_colonial_growth = -10
+	local_colonial_growth = -50 # -10
 	supply_limit_modifier = -0.2
 	local_hostile_attrition = 1
 
@@ -288,7 +293,7 @@ development = {
 	local_amount_of_hussars = 0.01
 
 	# mod3
-	local_autonomy = -0.04
+	local_autonomy = -0.03
 	local_tax_modifier = 0.03
 	local_production_efficiency = 0.03
 	province_trade_power_modifier = 0.03
@@ -301,6 +306,9 @@ development_scaled = {
 
 capital_city = {
 	fort_level = 1
+
+	# mod3
+	local_autonomy = -0.15
 }
 
 
@@ -606,7 +614,7 @@ base_values = {
 	horde_unity = -2
 	devotion = -0.5
 	meritocracy = -2
-	governing_capacity = 200
+	governing_capacity = 9999 # 200
 	num_accepted_cultures = 2
 	monthly_splendor = 1
 	artillery_levels_available_vs_fort = 5
@@ -1009,7 +1017,7 @@ country_development = {
 	horde_unity = -3
 
 	# mod3
-	global_autonomy = 1
+	global_autonomy = 0.75
 }
 
 # Multiplied by current Legitimacy - 50

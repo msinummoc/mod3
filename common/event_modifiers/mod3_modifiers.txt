@@ -1,0 +1,3 @@
+mod3_governing_capacity_penalty = {
+	governing_capacity = -9799
+}

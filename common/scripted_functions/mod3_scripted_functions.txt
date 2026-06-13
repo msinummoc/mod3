@@ -7,6 +7,18 @@ can_decrease_autonomy = {
 			}
 		}
 		allow = {
+			always = no
+		}
+	}
+}
+
+can_colonize_province = {
+	condition = {
+		tooltip = "you can not"
+		potential = {
+			always = yes
+		}
+		allow = {
 			always = yes
 		}
 	}
