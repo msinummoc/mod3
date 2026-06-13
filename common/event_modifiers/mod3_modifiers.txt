@@ -1,3 +1,39 @@
 mod3_governing_capacity_penalty = {
 	governing_capacity = -9799
 }
+
+mod3_autonomy_1 = {
+	local_autonomy = 0.01
+}
+
+mod3_autonomy_2 = {
+	local_autonomy = 0.02
+}
+
+mod3_autonomy_3 = {
+	local_autonomy = 0.04
+}
+
+mod3_autonomy_4 = {
+	local_autonomy = 0.08
+}
+
+mod3_autonomy_5 = {
+	local_autonomy = 0.16
+}
+
+mod3_autonomy_6 = {
+	local_autonomy = 0.32
+}
+
+mod3_autonomy_7 = {
+	local_autonomy = 0.64
+}
+
+mod3_autonomy_8 = {
+	local_autonomy = 1.28
+}
+
+mod3_autonomy_9 = {
+	local_autonomy = 2.56
+}

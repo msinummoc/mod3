@@ -34,6 +34,14 @@ mod3_global_variable_init_effect = {
 			value = 10
 		}
 
+		# autonomy will down this value if neighbour is lower than (autonomy-this-province - mod3_autonomy_step) average per year
+		# note that multiple neighbors work together so if you have many good neighbor you can go down faster
+		# but this variable here is just for demonstration because you can not add or sub variable directly
+		set_variable = {
+			which = mod3_autonomy_step_down
+			value = 0.5
+		}
+
 		# when autonomy is at 100 then local_autonomy = -(this_value); remember to set it in static_modifiers
 		set_variable = {
 			which = mod3_autonomy_gradient
@@ -45,11 +53,12 @@ mod3_global_variable_init_effect = {
 		# mod3_terrain_variable_init_effect = yes
 
 		# used to moderate the speed of autonomy changes
-		# 0.2 mean -1 autonomy = -0.2 autonomy and +1 autonomy = +0.2 autonomy
+		# 0.2 mean -1 autonomy = -0.2 autonomy
 		set_variable = {
 			which = mod3_autonomy_speed_factor
 			value = 0.2
 		}
+
 	}
 		
 }
@@ -142,12 +151,39 @@ mod3_autonomy_init_effect = {
 		subtract_variable = { which = mod3_loop value = 1 }
 		mod3_autonomy_init_loop_effect = yes
 	}
-	mod3_autonomy_speed_effect = yes
 }
 
 mod3_autonomy_yearly_effect = {
-	
-
+	every_owned_province = {
+		export_to_variable = {
+			which = mod3_local_autonomy
+			value = trigger_value:local_autonomy
+		}
+	}
+	every_owned_province = {
+		every_neighbor_province = {
+			limit = {
+				owned_by = ROOT
+			}
+			subtract_variable = {
+				which = mod3_local_autonomy
+				which = mod3_autonomy_step
+			}
+			subtract_variable = {
+				which = mod3_local_autonomy
+				which = PREV
+			}
+			if = {
+				limit = { check_variable = {which = mod3_local_autonomy value = 0} }
+				add_local_autonomy = -0.5
+			}
+			export_to_variable = {
+				which = mod3_local_autonomy
+				value = trigger_value:local_autonomy
+			}
+		}
+	}
+	mod3_autonomy_speed_effect = yes
 }
 
 mod3_terrain_variable_init_effect = {
@@ -257,5 +293,99 @@ mod3_autonomy_init_loop_effect = {
 
 # used to moderate the speed of autonomy changes
 mod3_autonomy_speed_effect = {
-	
+	export_to_variable = {
+		which = mod3_global_autonomy
+		value = modifier:global_autonomy
+	}
+	every_owned_province = {
+		remove_province_modifier = mod3_autonomy_1
+		remove_province_modifier = mod3_autonomy_2
+		remove_province_modifier = mod3_autonomy_3
+		remove_province_modifier = mod3_autonomy_4
+		remove_province_modifier = mod3_autonomy_5
+		remove_province_modifier = mod3_autonomy_6
+		remove_province_modifier = mod3_autonomy_7
+		remove_province_modifier = mod3_autonomy_8
+		remove_province_modifier = mod3_autonomy_9
+		set_variable = {
+			which = mod3_global_autonomy
+			which = owner
+		}
+		export_to_variable = {
+			which = mod3_local_autonomy
+			value = modifier:local_autonomy
+		}
+		change_variable = {
+			which = mod3_local_autonomy
+			which = mod3_global_autonomy
+		}
+		set_variable = {
+			which = mod3_mult
+			value = 1
+		}
+		subtract_variable = {
+			which = mod3_mult
+			which = mod3_autonomy_speed_factor
+		}
+		multiply_variable = {
+			which = mod3_local_autonomy
+			value = 100
+		}
+		multiply_variable = {
+			which = mod3_local_autonomy
+			which = mod3_mult
+		}
+		if = {
+			limit = { NOt = { check_variable = { which = mod3_local_autonomy value = 0 } } }
+			multiply_variable = {
+				which = mod3_local_autonomy
+				value = -1
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 256 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_9 }
+				subtract_variable = { which = mod3_local_autonomy value = 256 }
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 128 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_8 }
+				subtract_variable = { which = mod3_local_autonomy value = 128 }
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 64 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_7 }
+				subtract_variable = { which = mod3_local_autonomy value = 64 }
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 32 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_6 }
+				subtract_variable = { which = mod3_local_autonomy value = 32 }
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 16 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_5 }
+				subtract_variable = { which = mod3_local_autonomy value = 16 }
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 8 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_4 }
+				subtract_variable = { which = mod3_local_autonomy value = 8 }
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 4 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_3 }
+				subtract_variable = { which = mod3_local_autonomy value = 4 }
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 2 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_2 }
+				subtract_variable = { which = mod3_local_autonomy value = 2 }
+			}
+			if = {
+				limit = { check_variable = { which = mod3_local_autonomy value = 1 } }
+				add_permanent_province_modifier = { name = mod3_autonomy_1 }
+				subtract_variable = { which = mod3_local_autonomy value = 1 }
+			}
+		}
+	}
 }
