@@ -1,6 +1,7 @@
 mod3_init_effect = {
 	mod3_global_variable_init_effect = yes
 	mod3_autonomy_init_effect = yes
+	mod3_army_professionalism_init_effect = yes
 	set_country_flag = mod3_initialized_flag
 }
 
@@ -39,7 +40,7 @@ mod3_global_variable_init_effect = {
 		# but this variable here is just for demonstration because you can not add or sub variable directly
 		set_variable = {
 			which = mod3_autonomy_step_down
-			value = 0.5
+			value = 1
 		}
 
 		# when autonomy is at 100 then local_autonomy = -(this_value); remember to set it in static_modifiers
@@ -59,8 +60,93 @@ mod3_global_variable_init_effect = {
 			value = 0.2
 		}
 
+
 	}
-		
+	
+	set_variable = {
+		which = mod3_professionalism_gradient
+		value = 20
+	}
+}
+
+mod3_army_professionalism_init_effect = {
+	export_to_variable = {
+		which = mod3_yearly_professionlism
+		value = modifier:yearly_army_professionalism
+	}
+	multiply_variable = {
+		which = mod3_yearly_professionlism
+		value = 10000
+	}
+	divide_variable = {
+		which = mod3_yearly_professionlism
+		which = mod3_professionalism_gradient
+	}
+	if = {
+		limit = { check_variable = {which = mod3_yearly_professionlism value = 64}}
+		subtract_variable = {which = mod3_yearly_professionlism value = 64}
+		add_army_professionalism = 0.64
+	}
+	if = {
+		limit = { check_variable = {which = mod3_yearly_professionlism value = 32}}
+		subtract_variable = {which = mod3_yearly_professionlism value = 32}
+		add_army_professionalism = 0.32
+	}
+	if = {
+		limit = { check_variable = {which = mod3_yearly_professionlism value = 16}}
+		subtract_variable = {which = mod3_yearly_professionlism value = 16}
+		add_army_professionalism = 0.16
+	}
+	if = {
+		limit = { check_variable = {which = mod3_yearly_professionlism value = 8}}
+		subtract_variable = {which = mod3_yearly_professionlism value = 8}
+		add_army_professionalism = 0.08
+	}
+	if = {
+		limit = { check_variable = {which = mod3_yearly_professionlism value = 4}}
+		subtract_variable = {which = mod3_yearly_professionlism value = 4}
+		add_army_professionalism = 0.04
+	}
+	if = {
+		limit = { check_variable = {which = mod3_yearly_professionlism value = 2}}
+		subtract_variable = {which = mod3_yearly_professionlism value = 2}
+		add_army_professionalism = 0.02
+	}
+	if = {
+		limit = { check_variable = {which = mod3_yearly_professionlism value = 1}}
+		subtract_variable = {which = mod3_yearly_professionlism value = 1}
+		add_army_professionalism = 0.01
+	}
+	if = {
+		limit = {
+			army_professionalism = 0.2
+		}
+		add_army_professionalism = 0.15
+	}
+	if = {
+		limit = {
+			army_professionalism = 0.4
+		}
+		add_army_professionalism = 0.1
+	}
+	if = {
+		limit = {
+			army_professionalism = 0.55
+		}
+		add_army_professionalism = 0.1
+	}
+	if = {
+		limit = {
+			army_professionalism = 0.7
+		}
+		add_army_professionalism = 0.1
+	}
+	if = {
+		limit = {
+			army_professionalism = 0.85
+		}
+		add_army_professionalism = 0.075
+	}
 }
 
 mod3_autonomy_init_effect = {
@@ -175,7 +261,7 @@ mod3_autonomy_yearly_effect = {
 			}
 			if = {
 				limit = { check_variable = {which = mod3_local_autonomy value = 0} }
-				add_local_autonomy = -0.5
+				add_local_autonomy = -3
 			}
 			export_to_variable = {
 				which = mod3_local_autonomy
@@ -336,54 +422,54 @@ mod3_autonomy_speed_effect = {
 			which = mod3_mult
 		}
 		if = {
-			limit = { NOt = { check_variable = { which = mod3_local_autonomy value = 0 } } }
+			limit = { NOT = { check_variable = { which = mod3_local_autonomy value = 0 } } }
 			multiply_variable = {
 				which = mod3_local_autonomy
 				value = -1
-			}
+			} 
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 256 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_9 }
+				add_permanent_province_modifier = { name = mod3_autonomy_9 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 256 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 128 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_8 }
+				add_permanent_province_modifier = { name = mod3_autonomy_8 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 128 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 64 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_7 }
+				add_permanent_province_modifier = { name = mod3_autonomy_7 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 64 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 32 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_6 }
+				add_permanent_province_modifier = { name = mod3_autonomy_6 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 32 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 16 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_5 }
+				add_permanent_province_modifier = { name = mod3_autonomy_5 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 16 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 8 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_4 }
+				add_permanent_province_modifier = { name = mod3_autonomy_4 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 8 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 4 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_3 }
+				add_permanent_province_modifier = { name = mod3_autonomy_3 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 4 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 2 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_2 }
+				add_permanent_province_modifier = { name = mod3_autonomy_2 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 2 }
 			}
 			if = {
 				limit = { check_variable = { which = mod3_local_autonomy value = 1 } }
-				add_permanent_province_modifier = { name = mod3_autonomy_1 }
+				add_permanent_province_modifier = { name = mod3_autonomy_1 hidden = yes }
 				subtract_variable = { which = mod3_local_autonomy value = 1 }
 			}
 		}

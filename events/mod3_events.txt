@@ -24,7 +24,7 @@ country_event = {
 country_event = {
 	id = mod3.2
 	title = mod3.2.t
-	desc = mod3.1.d
+	desc = mod3.2.d
 	picture = INVENTION_eventPicture
 	hidden = yes
 	is_triggered_only = yes
@@ -33,6 +33,27 @@ country_event = {
 	}
 	immediate = {
 		mod3_yearly_effect = yes
+    }
+	
+	option = {
+		
+	}
+}
+
+
+# test event
+country_event = {
+	id = mod3.999
+	title = mod3.999.t
+	desc = mod3.999.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		always = yes
+	}
+	immediate = {
+		mod3_army_professionalism_init_effect = yes
     }
 	
 	option = {

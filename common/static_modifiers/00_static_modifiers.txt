@@ -104,10 +104,11 @@ city = {
 	allowed_num_of_manufactories = 1
 
 	# mod3
-	local_autonomy = 1
+	local_autonomy = 1.5
 	local_development_cost = 1
 	land_forcelimit = 0.5
 	local_manpower = 0.5
+	tax_income = 3
 }
 
 port = {
@@ -255,11 +256,20 @@ provincial_tax_income = {
 	local_great_project_upgrade_time = -0.01
 	local_build_time = -0.01
 	local_institution_spread = 0.02
+
+	# mod3
+	local_production_efficiency = 0.05
+	province_trade_power_modifier = 0.1
 }
 
 provincial_production_size = {
 	trade_goods_size = 0.2
 	ship_recruit_speed = -0.01
+
+	# mod3
+	local_tax_modifier = 0.1
+	trade_value_modifier = 0.03
+	province_trade_power_value = 0.2
 }
 
 knowledge_sharing = {
@@ -273,6 +283,10 @@ cardinals_spread_institution = {
 
 manpower = {
 	garrison_growth = 0.01					#1% increase from manpower.
+
+	# mod3
+	land_forcelimit = 0.2
+	naval_forcelimit = 0.2
 }
 
 province_razed = {
@@ -293,11 +307,8 @@ development = {
 	local_amount_of_hussars = 0.01
 
 	# mod3
-	local_autonomy = -0.03
-	local_tax_modifier = 0.03
-	local_production_efficiency = 0.03
-	province_trade_power_modifier = 0.03
-	local_state_maintenance_modifier = 0.1
+	local_autonomy = -0.05
+	local_state_maintenance_modifier = 0.2
 }
 
 development_scaled = {
@@ -308,7 +319,7 @@ capital_city = {
 	fort_level = 1
 
 	# mod3
-	local_autonomy = -0.15
+	local_autonomy = -0.2
 }
 
 
@@ -367,6 +378,9 @@ colonial_core = {
 	local_missionary_strength = -0.02
 	min_local_autonomy = 50
 	local_governing_cost = -0.5
+
+	# mod3
+	local_autonomy = 0.75
 }
 
 territory_core = {
@@ -376,12 +390,18 @@ territory_core = {
 	local_missionary_strength = -0.02
 	min_local_autonomy = 90
 	local_governing_cost = -0.75
+
+	# mod3
+	local_autonomy = 0.75
 }
 
 territory_non_core = {
 	local_missionary_strength = -0.02
 	min_local_autonomy = 90
 	local_governing_cost = -0.75
+	
+	# mod3
+	local_autonomy = 0.75
 }
 
 march_bonus = {
@@ -426,6 +446,9 @@ same_culture_group = {
 	local_tax_modifier = -0.15				#10% penalty if same culture group but nothing else. Not applied if the controller is the Union Tag of the culture group, or has culture_group_union set.
 	local_manpower_modifier = -0.15
 	local_sailors_modifier = -0.1
+
+	#mod3
+	local_autonomy = 0.1
 }
 
 non_accepted_culture = {
@@ -435,6 +458,9 @@ non_accepted_culture = {
 	local_manpower_modifier = -0.33
 	local_sailors_modifier = -0.2
 	local_unrest = 2					#1% revolt risk!
+
+	# mod3
+	local_autonomy = 0.25
 }
 
 accepted_culture_demoted = {
@@ -541,6 +567,8 @@ local_autonomy_trade_company_multiplicative = {
 }
 
 local_autonomy_trade_company = {
+	# mod3
+	local_autonomy = -2
 }
 
 recent_uprising = {
@@ -626,6 +654,9 @@ base_values = {
 	max_flagships = 1
 	num_of_parliament_issues = 10
 	has_marines = yes
+
+	# mod3
+	yearly_army_professionalism = 0.01
 }
 
 # AI 'cheats' that compensate for flaws in its long-term decision making, removing these may severely cripple the AI
@@ -648,6 +679,9 @@ stability = {
 	global_spy_defence = 0.05				#-15 to +15% modifier
 	monthly_cultural_unity = 0.1
 	monthly_divine_authority = 0.05
+
+	# mod3
+	global_autonomy = -0.03
 }
 
 positive_stability = {
@@ -880,6 +914,9 @@ army_tradition = {
 	ghulams_loyalty_modifier = 0.05
 	allowed_tercio_fraction = 0.1
 	allowed_samurai_fraction = 0.1
+
+	# mod3
+	yearly_army_professionalism = 0.03
 }
 
 navy_tradition = {
@@ -1033,6 +1070,9 @@ legitimacy = {
 	nobles_loyalty_modifier = 0.1
 	monthly_cultural_unity = 0.2
 	monthly_divine_authority = 0.3
+
+	# mod3
+	local_autonomy = -0.2
 }
 
 #Multiplied by current Horde Unity - 50
@@ -1040,6 +1080,10 @@ horde_unity = {
 	global_unrest = -4
 	discipline = 0.10
 	#nomadic_tribes_loyalty_modifier = 0.05	#New Change
+
+	# mod3
+	land_forcelimit = 6
+	land_forcelimit_modifier = 0.4
 }
 
 # Multiplied by current Devotion - 50
@@ -1059,6 +1103,8 @@ devotion = {
 	church_loyalty_modifier = 0.1
 	brahmins_hindu_loyalty_modifier = 0.1
 	reform_progress_growth = 0.5
+	# mod3
+	local_autonomy = -0.2
 }
 
 # Multiplied by current meritocracy - 50
@@ -1066,6 +1112,8 @@ meritocracy = {
 	global_spy_defence = 1.0
 	advisor_cost = -0.5
 	reform_progress_growth = 0.5
+	# mod3
+	local_autonomy = -0.2
 }
 
 # Multiplied by 50 - meritocracy
@@ -1402,19 +1450,26 @@ absolutism = {
 	discipline = 0.05
 	core_decay_on_your_own = -0.5
 	monthly_ottoman_decadence = -0.5
+
+	yearly_army_professionalism = 0.03
 }
 
 low_army_professionalism = {
-	mercenary_cost = -0.15
-	mercenary_manpower = 0.15
+	mercenary_cost = -0.25 #-0.15
+	mercenary_manpower = 0.25 #0.15
 }
 
 high_army_professionalism = {
-	fire_damage = 0.1
-	shock_damage = 0.1
-	siege_ability = 0.2
+	fire_damage = 0.3 #0.1
+	shock_damage = 0.3 #0.1
+	siege_ability = 0.3 #0.2
 	drill_decay_modifier = -0.5
 	allowed_samurai_fraction = 0.1
+
+	# mod3
+	yearly_army_professionalism = -0.2
+	discipline = 0.1
+	defensiveness = 0.5
 }
 
 streltsy_modifier = {
@@ -1674,7 +1729,7 @@ dishonoured_alliance =  {
 }
 
 drilling_armies = { # Multiplied by percentage of forcelimit currently drilling
-	yearly_army_professionalism = 0.01
+	yearly_army_professionalism = 0.03 #0.01
 }
 
 ##################################################################################################
@@ -2314,6 +2369,9 @@ ruler_adm = {
 	monthly_council_consensus = 0.1
 	monthly_egyptian_westernization = 0.05
 	monthly_divine_authority = 0.01
+
+	# mod3
+	global_autonomy = -0.04
 }
 
 ruler_dip = {
@@ -2321,12 +2379,18 @@ ruler_dip = {
 	monthly_egyptian_westernization = 0.05
 	monthly_arabic_trade_influence_power = 0.05
 	monthly_divine_authority = 0.01
+
+	# mod3
+	diplomatic_reputation = 0.3
 }
 
 ruler_mil = {
 	monthly_council_consensus = 0.1
 	monthly_egyptian_westernization = 0.05
 	monthly_divine_authority = 0.01
+
+	# mod3
+	yearly_army_professionalism = 0.005
 }
 
 heir_adm = {
@@ -2376,7 +2440,7 @@ negative_imperial_authority_member = {
 }
 
 slackening_modifier = {
-    yearly_army_professionalism = -0.05
+    yearly_army_professionalism = -0.075 # -0.05
     manpower_recovery_speed = 2
 }
 

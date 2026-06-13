@@ -33,3 +33,7 @@ on_dip_exploited = {
 on_mil_exploited = {
 	
 }
+
+on_siege_lost_province = {
+	
+}
