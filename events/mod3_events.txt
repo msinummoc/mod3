@@ -8,11 +8,16 @@ country_event = {
 	picture = INVENTION_eventPicture
 	hidden = yes
 	is_triggered_only = yes
-	trigger = {
-		always = yes
-	}
 	immediate = {
-		mod3_init_effect = yes
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = mod3_has_init_flag
+				}
+			}
+			mod3_init_effect = yes
+			set_country_flag = mod3_has_init_flag
+		}
     }
 	
 	option = {
@@ -28,9 +33,6 @@ country_event = {
 	picture = INVENTION_eventPicture
 	hidden = yes
 	is_triggered_only = yes
-	trigger = {
-		always = yes
-	}
 	immediate = {
 		mod3_yearly_effect = yes
     }
@@ -56,6 +58,34 @@ country_event = {
 		mod3_army_professionalism_init_effect = yes
     }
 	
+	option = {
+		
+	}
+}
+
+province_event = {
+	id = mod3.5
+	title = mod3.5.t
+	desc = mod3.5.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				owner = {
+					government = native
+				}
+				controller = {
+					NOT = {
+						government = native
+					}
+				}
+			}
+			decolonize = yes
+		}
+	}
+
 	option = {
 		
 	}
