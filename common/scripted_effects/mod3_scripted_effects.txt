@@ -90,9 +90,7 @@ mod3_adm_dev_yearly_effect = {
                                     and = {
                                         owned_by = root 
                                         not = { has_province_flag = mod3_adm_2_flag } 
-                                        sea_zone = {
-                                            province_id = prev
-                                        }
+                                        sea_zone = { province_id = prev }
                                     }
                                 }
                                 set_variable = { which = mod3_adm_dev which = prev }
@@ -104,10 +102,10 @@ mod3_adm_dev_yearly_effect = {
                             }
                             else_if = {
                                 limit = { 
-                                    not = { has_province_flag = mod3_adm_2_flag } 
-                                    sea_zone = {
-                                        province_id = prev
-                                    }
+                                    and = { 
+                                        not = { has_province_flag = mod3_adm_2_flag } 
+                                        sea_zone = { province_id = prev }
+                                    }    
                                 }
                                 set_variable = { which = mod3_adm_dev which = prev }
                                 set_variable = { which = var1 value = 0.25 }
@@ -138,6 +136,7 @@ mod3_adm_dev_yearly_effect = {
                 limit = { has_province_flag = mod3_adm_2_flag }
                 clr_province_flag = mod3_adm_2_flag
             }
+            clr_province_flag = mod3_adm_2_flag
         }
     }
     every_owned_province = {
