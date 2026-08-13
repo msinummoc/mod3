@@ -29,7 +29,6 @@ mod3_init_effect = {
 mod3_yearly_effect = {
     mod3_adm_dev_yearly_effect = yes
     mod3_dip_dev_yearly_effect = yes
-    mod3_mil_dev_yearly_effect = yes
     country_event = {
         id = mod3.4
         days = 1
@@ -39,6 +38,7 @@ mod3_yearly_effect = {
 mod3_yearly_after_effect = {
     # 在这里汇总计算结果
     every_owned_province = {
+        set_variable = { which = mod3_adm_dev_buff value = 0 }
         set_variable = { which = mod3_dev_buff which = mod3_adm_dev_buff }
         change_variable = { which = mod3_dev_buff which = mod3_dip_dev_buff }
         change_variable = { which = mod3_dev_buff which = mod3_mil_dev_buff }
@@ -213,11 +213,35 @@ mod3_dip_dev_yearly_effect = {
 
 }
 
-mod3_mil_dev_yearly_effect = {
-    every_owned_province = {
-        limit = { not = { has_province_flag = mod3_mil_flag } }
-        
+mod3_mil_dev_effect = {
+    every_province = {
+        clr_province_flag = mod3_mil_flag
+    }
+    every_province = {
+        limit = { not = { has_province_flag = mod3_mil_flag }}
+        export_to_variable = { which = mod3_mil_dev_buff value = trigger_value:base_manpower }
+        set_variable = { which = mod3_region_province_number value = 1 }
+        region = {
+            limit = { not = { province_id = prev } is_city = yes }
+            export_to_variable = { which = mod3_mil_dev_buff value = trigger_value:base_manpower }
+            prev = {
+                change_variable = { which = mod3_mil_dev_buff which = prev }
+                change_variable = { which = mod3_region_province_number value = 1 }
+            }
+        }
+        # 使用 13/(x+40) 估计 1/sprt(x)
+        set_variable = { which = var1 value = 13 }
+        change_variable = { which = mod3_region_province_number value = 40 }
+        divide_variable = { which = var1 which = mod3_region_province_number }
+        multiply_variable = { which = mod3_mil_dev_buff which = var1 }
+        multiply_variable = { which = mod3_mil_dev_buff value = 1.5 }
+        region = {
+            set_variable = { which = mod3_mil_dev_buff which = prev }
+            set_province_flag = mod3_mil_flag
+        }
     }
 }
 
-mod3_test_effect = {}
+mod3_test_effect = {
+    mod3_mil_dev_effect = yes
+}

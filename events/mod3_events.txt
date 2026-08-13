@@ -17,6 +17,7 @@ country_event = {
 				id = mod3.11
 			}
 		}
+		mod3_mil_dev_effect = yes
     }
 	
 	option = {
@@ -35,7 +36,7 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { 
-				NOT = {
+				not = {
 					has_country_flag = mod3_has_init_flag
 				}
 			}
@@ -66,6 +67,7 @@ country_event = {
 				id = mod3.3
 			}
 		}
+		mod3_mil_dev_effect = yes
     }
 	
 	option = {
@@ -107,6 +109,7 @@ country_event = {
 	}
 }
 
+
 country_event = {
 	id = mod3.999
 	title = mod3.999.t
@@ -115,9 +118,8 @@ country_event = {
 	hidden = yes
 	is_triggered_only = yes
 	immediate = {
-		every_country = {
-			add_stability = 1
-		}
+		mod3_test_effect = yes
+		
     }
 	
 	option = {
