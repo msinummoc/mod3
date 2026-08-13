@@ -8,15 +8,14 @@ country_event = {
 	picture = INVENTION_eventPicture
 	hidden = yes
 	is_triggered_only = yes
+	trigger = {
+		owns = 1
+	}
 	immediate = {
-		if = {
-			limit = { 
-				NOT = {
-					has_country_flag = mod3_has_init_flag
-				}
+		every_country = {
+			country_event = {
+				id = mod3.11
 			}
-			mod3_init_effect = yes
-			set_country_flag = mod3_has_init_flag
 		}
     }
 	
@@ -25,11 +24,11 @@ country_event = {
 	}
 }
 
-# yearly event but only check if has inited or not
+# init event
 country_event = {
-	id = mod3.2
-	title = mod3.2.t
-	desc = mod3.2.d
+	id = mod3.11
+	title = mod3.11.t
+	desc = mod3.11.d
 	picture = INVENTION_eventPicture
 	hidden = yes
 	is_triggered_only = yes
@@ -49,6 +48,31 @@ country_event = {
 		
 	}
 }
+
+# yearly event
+country_event = {
+	id = mod3.2
+	title = mod3.2.t
+	desc = mod3.2.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+		owns = 1
+	}
+	immediate = {
+		every_country = {
+			country_event = {
+				id = mod3.3
+			}
+		}
+    }
+	
+	option = {
+		
+	}
+}
+
 
 # true yearly event 1
 country_event = {
@@ -91,7 +115,9 @@ country_event = {
 	hidden = yes
 	is_triggered_only = yes
 	immediate = {
-		mod3_test_effect = yes
+		every_country = {
+			add_stability = 1
+		}
     }
 	
 	option = {

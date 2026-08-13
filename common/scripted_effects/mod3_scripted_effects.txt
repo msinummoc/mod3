@@ -32,7 +32,7 @@ mod3_yearly_effect = {
     mod3_mil_dev_yearly_effect = yes
     country_event = {
         id = mod3.4
-        days = 3
+        days = 1
     }
 }
 
@@ -110,10 +110,6 @@ mod3_yearly_after_effect = {
             subtract_variable = { which = mod3_dev_buff value = 1 }
         }
         set_variable = { which = mod3_adm_dev_buff value = 0 }
-    }
-    country_event = {
-        id = mod3.3
-        days = 363
     }
 }
 
@@ -213,8 +209,15 @@ mod3_adm_dev_yearly_effect = {
     }
 }
 
-mod3_dip_dev_yearly_effect = {}
+mod3_dip_dev_yearly_effect = {
 
-mod3_mil_dev_yearly_effect = {}
+}
+
+mod3_mil_dev_yearly_effect = {
+    every_owned_province = {
+        limit = { not = { has_province_flag = mod3_mil_flag } }
+        
+    }
+}
 
 mod3_test_effect = {}
