@@ -1,1 +1,218 @@
+mod3_init_effect = {
+    if = {
+        limit = { tag = KOR }
+        capital_scope = {
+            add_base_tax = -2
+            add_base_production = -2
+            add_base_manpower = -1
+        }
+    }
+    else_if = {
+        limit = { OR = { tag = CRI tag = GOL tag = KAZ tag = NOG tag = SHY } }
+        every_owned_province = {
+            if = { limit = { base_tax = 2 } add_base_tax = -1 }
+            if = { limit = { base_production = 2 } add_base_production = -1 }
+            if = { limit = { base_manpower = 3 } add_base_manpower = -1 }
+        }
+    }
+    else_if = {
+        limit = { capital_scope = { superregion = east_indies_superregion } }
+        every_owned_province = {
+            if = { limit = { base_tax = 3 } add_base_tax = -1 }
+            if = { limit = { base_production = 3 } add_base_production = -1 }
+            if = { limit = { base_manpower = 3 } add_base_manpower = -1 }
+        }
+    }
+    mod3_yearly_effect = yes
+}
 
+mod3_yearly_effect = {
+    mod3_adm_dev_yearly_effect = yes
+    mod3_dip_dev_yearly_effect = yes
+    mod3_mil_dev_yearly_effect = yes
+    country_event = {
+        id = mod3.4
+        days = 3
+    }
+}
+
+mod3_yearly_after_effect = {
+    # 在这里汇总计算结果
+    country_event = {
+        id = mod3.3
+        days = 363
+    }
+}
+
+mod3_adm_dev_yearly_effect = {
+    every_owned_province = {
+        clr_province_flag = mod3_adm_1_flag
+        set_variable = { which = mod3_adm_dev_buff value = 0 }
+    }
+    every_owned_province = {
+        limit = { not = { has_province_flag = mod3_adm_1_flag } }
+        export_to_variable = { which = mod3_adm_dev value = trigger_value:base_tax }
+        area = {
+            limit = { and = { not = { province_id = prev } owned_by = root } }
+            export_to_variable = { which = mod3_adm_dev value = trigger_value:base_tax }
+            prev = { change_variable = { which = mod3_adm_dev which = prev } }
+        }
+        area = {
+            limit = { owned_by = root }
+            set_variable = { which = mod3_adm_dev which = prev }
+            change_variable = { which = mod3_adm_dev_buff which = mod3_adm_dev }
+            set_province_flag = mod3_adm_2_flag
+            every_neighbor_province = {
+                if = {
+                    limit = { and = { owned_by = root not = { has_province_flag = mod3_adm_2_flag } } }
+                    set_variable = { which = mod3_adm_dev which = prev }
+                    change_variable = { which = mod3_adm_dev_buff which = mod3_adm_dev }
+                    set_province_flag = mod3_adm_2_flag
+                }
+                else_if = {
+                    limit = { not = { has_province_flag = mod3_adm_2_flag } }
+                    set_variable = { which = mod3_adm_dev which = prev }
+                    set_variable = { which = var1 value = 0.5 }
+                    multiply_variable = { which = var1 which = mod3_adm_dev }
+                    change_variable = { which = mod3_adm_dev_buff which = var1 }
+                    set_province_flag = mod3_adm_2_flag
+                }
+            }
+            if = {
+                limit = { has_port = yes }
+                sea_zone = {
+                    if = {
+                        limit = { not = { has_province_flag = mod3_adm_2_flag } }
+                        set_variable = { which = mod3_adm_dev which = prev }
+                        every_neighbor_province = {
+                            if = {
+                                limit = { 
+                                    and = {
+                                        owned_by = root 
+                                        not = { has_province_flag = mod3_adm_2_flag } 
+                                        sea_zone = {
+                                            province_id = prev
+                                        }
+                                    }
+                                }
+                                set_variable = { which = mod3_adm_dev which = prev }
+                                # 海上传播系数低一点
+                                set_variable = { which = var1 value = 0.5 }
+                                multiply_variable = { which = var1 which = mod3_adm_dev }
+                                change_variable = { which = mod3_adm_dev_buff which = var1 }
+                                set_province_flag = mod3_adm_2_flag
+                            }
+                            else_if = {
+                                limit = { 
+                                    not = { has_province_flag = mod3_adm_2_flag } 
+                                    sea_zone = {
+                                        province_id = prev
+                                    }
+                                }
+                                set_variable = { which = mod3_adm_dev which = prev }
+                                set_variable = { which = var1 value = 0.25 }
+                                multiply_variable = { which = var1 which = mod3_adm_dev }
+                                change_variable = { which = mod3_adm_dev_buff which = var1 }
+                                set_province_flag = mod3_adm_2_flag
+                            }
+                        }
+                        set_province_flag = mod3_adm_2_flag
+                    }
+                }
+            }
+            set_province_flag = mod3_adm_1_flag
+        }
+        area = {
+            limit = { owned_by = root }
+            if = {
+                limit = { has_port = yes }
+                sea_zone = {
+                    every_neighbor_province = {
+                        limit = { has_province_flag = mod3_adm_2_flag }
+                        clr_province_flag = mod3_adm_2_flag
+                    }
+                    clr_province_flag = mod3_adm_2_flag
+                }
+            }
+            every_neighbor_province = {
+                limit = { has_province_flag = mod3_adm_2_flag }
+                clr_province_flag = mod3_adm_2_flag
+            }
+        }
+    }
+    every_owned_province = {
+        remove_province_modifier = mod3_adm_buff_10
+        remove_province_modifier = mod3_adm_buff_9
+        remove_province_modifier = mod3_adm_buff_8
+        remove_province_modifier = mod3_adm_buff_7
+        remove_province_modifier = mod3_adm_buff_6
+        remove_province_modifier = mod3_adm_buff_5
+        remove_province_modifier = mod3_adm_buff_4
+        remove_province_modifier = mod3_adm_buff_3
+        remove_province_modifier = mod3_adm_buff_2
+        remove_province_modifier = mod3_adm_buff_1
+        remove_province_modifier = mod3_adm_buff_0
+        set_variable = { which = mod3_test2 which = mod3_adm_dev_buff }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 1024 } }
+            add_province_modifier = { name = mod3_adm_buff_10 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 1024 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 512 } }
+            add_province_modifier = { name = mod3_adm_buff_9 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 512 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 256 } }
+            add_province_modifier = { name = mod3_adm_buff_8 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 256 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 128 } }
+            add_province_modifier = { name = mod3_adm_buff_7 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 128 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 64 } }
+            add_province_modifier = { name = mod3_adm_buff_6 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 64 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 32 } }
+            add_province_modifier = { name = mod3_adm_buff_5 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 32 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 16 } }
+            add_province_modifier = { name = mod3_adm_buff_4 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 16 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 8 } }
+            add_province_modifier = { name = mod3_adm_buff_3 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 8 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 4 } }
+            add_province_modifier = { name = mod3_adm_buff_2 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 4 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 2 } }
+            add_province_modifier = { name = mod3_adm_buff_1 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 2 }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_adm_dev_buff value = 1 } }
+            add_province_modifier = { name = mod3_adm_buff_0 duration = -1 hidden = yes }
+            subtract_variable = { which = mod3_adm_dev_buff value = 1 }
+        }
+    }
+}
+
+mod3_dip_dev_yearly_effect = {}
+
+mod3_mil_dev_yearly_effect = {}
+
+mod3_test_effect = {}
