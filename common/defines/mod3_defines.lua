@@ -1,0 +1,63 @@
+-- NDefines.NCountry.COUNTRY_DEVELOPMENT_SCALE = 3000 -- 600
+
+-- NDefines.NCountry.INSTITUTION_BONUS_FROM_IMP_DEVELOPMENT = 3  --5
+-- NDefines.NCountry.PS_IMPROVE_PROVINCE_BASE = 25
+
+-- NDefines.NCountry.PS_ADVANCE_TECH = 700 --600
+-- NDefines.NCountry.NEIGHBOURBONUS = -0.075 -- -0.05
+-- NDefines.NCountry.NEIGHBOURBONUS_CORRUPTION = -0.1  -- 0
+
+-- NDefines.NCountry.STATE_MAINTENANCE_DEV_FACTOR = 0.01 -- 0.007
+-- NDefines.NCountry.EDICTS_COST_INCREASE = 0.5 -- 2
+
+-- NDefines.NCountry.REVOLT_SIZE_DEVELOPMENT_MULTIPLIER = 0.1 --0.1
+-- NDefines.NCountry.REVOLT_TECH_IMPACT = 0.04 --0.03
+-- NDefines.NCountry.REVOLT_TECH_MORALE = 0.02 --0.01
+
+-- NDefines.NCountry.LAND_FORCELIMIT_EXTRA_COST_FACTOR = 1.75 --2
+-- NDefines.NCountry.NAVAL_FORCELIMIT_EXTRA_COST_FACTOR = 1.75 --2
+
+
+-- NDefines.NCountry.MAXIMUM_ADVISOR_SKILL = 10  -- 5
+-- NDefines.NCountry.POWER_MAX = 1999 --999
+
+-- NDefines.NCountry.CORRUPTION_COST = 0.075 -- 0.05
+
+-- NDefines.NEconomy.DECREASE_AUTONOMY_STEP = 0  -- 25
+-- NDefines.NEconomy.INCREASE_AUTONOMY_STEP = 0  -- 25
+-- NDefines.NEconomy.CAPITAL_MAX_AUTONOMY = 25 -- 0
+
+-- NDefines.NEconomy.ADVISOR_COST = 0.5  -- 1
+
+
+-- NDefines.NDiplomacy.AUTONOMY_WARSCORE_COST_MODIFIER = -0.75 -- -0.33
+
+-- NDefines.NMilitary.BASE_MP_TO_MANPOWER = 0.35 --0.25
+
+-- NDefines.NMilitary.INF_LOOT = 0.4 --0.1
+-- NDefines.NMilitary.ART_LOOT = 0.2 --0.05
+-- NDefines.NMilitary.CAV_LOOT = 1.2 --0.3
+-- NDefines.NMilitary.LOOTED_SCALE = 3 -- 1
+-- NDefines.NMilitary.LOOTED_MAX = 20 -- 5
+
+-- NDefines.NMilitary.MONTHLY_REINFORCE = 0.066 -- 0.1
+-- NDefines.NMilitary.TRADITION_GAIN_LAND = 40 -- 20
+-- NDefines.NMilitary.TRADITION_GAIN_NAVAL = 80  -- 40
+-- NDefines.NMilitary.CONDOTTIERI_TRADITION_BONUS = 1 -- 0.5
+
+
+-- NDefines.NAI.DEVELOPMENT_CAP_BASE = 20 --10
+-- NDefines.NAI.DEVELOPMENT_CAP_MULT = 10 --2
+
+
+-- NDefines.NAI.ARMY_BUDGET_FRACTION = 1 -- 0.6
+-- NDefines.NAI.NAVY_BUDGET_FRACTION = 0.6 -- 0.3
+-- NDefines.NAI.FORT_BUDGET_FRACTION = 0.6 -- 0.3
+
+-- NDefines.NAI.GOVERNING_CAPACITY_OVER_PERCENTAGE_TOLERATED = 1 -- 0.5
+
+-- NDefines.NAI.REPAY_LOAN_BASE_AI_DESIRE = 100 -- 5
+-- NDefines.NAIEconomy.LOAN_REPAYMENT_SAVINGS_PRIORITY = 10 -- 1
+-- NDefines.NAIEconomy.LOAN_REPAYMENT_SAVINGS_PRIORITY_WARTIME = 0.5  -- 0.5
+
+NDefines.NCountry.PS_IMPROVE_PROVINCE_BASE = 30 --50

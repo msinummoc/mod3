@@ -1,0 +1,52 @@
+mod3_test_modifier = {
+	fort_level = 1
+}
+
+mod3_test2 = {
+	fort_level = 2
+}
+
+
+mod3_adm_buff_0  = {
+	local_development_cost = -0.01
+}
+
+mod3_adm_buff_1 = {
+	local_development_cost = -0.02
+}
+
+mod3_adm_buff_2 = {
+	local_development_cost = -0.04
+}
+
+mod3_adm_buff_3 = {
+	local_development_cost = -0.08
+}
+
+mod3_adm_buff_4 = {
+	local_development_cost = -0.16
+}
+
+mod3_adm_buff_5 = {
+	local_development_cost = -0.32
+}
+
+mod3_adm_buff_6 = {
+	local_development_cost = -0.64
+}
+
+mod3_adm_buff_7 = {
+	local_development_cost = -1.28
+}
+
+mod3_adm_buff_8 = {
+	local_development_cost = -2.56
+}
+
+mod3_adm_buff_9 = {
+	local_development_cost = -5.12
+}
+
+mod3_adm_buff_10 = {
+	local_development_cost = -10.24
+}

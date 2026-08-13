@@ -1,0 +1,100 @@
+namespace = mod3
+
+# init event
+country_event = {
+	id = mod3.1
+	title = mod3.1.t
+	desc = mod3.1.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = mod3_has_init_flag
+				}
+			}
+			mod3_init_effect = yes
+			set_country_flag = mod3_has_init_flag
+		}
+    }
+	
+	option = {
+		
+	}
+}
+
+# yearly event but only check if has inited or not
+country_event = {
+	id = mod3.2
+	title = mod3.2.t
+	desc = mod3.2.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = { 
+				NOT = {
+					has_country_flag = mod3_has_init_flag
+				}
+			}
+			mod3_init_effect = yes
+			set_country_flag = mod3_has_init_flag
+		}
+    }
+	
+	option = {
+		
+	}
+}
+
+# true yearly event 1
+country_event = {
+	id = mod3.3
+	title = mod3.3.t
+	desc = mod3.3.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		mod3_yearly_effect = yes
+    }
+	
+	option = {
+		
+	}
+}
+# true yearly event 2
+country_event = {
+	id = mod3.4
+	title = mod3.4.t
+	desc = mod3.4.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		mod3_yearly_after_effect = yes
+    }
+	
+	option = {
+		
+	}
+}
+
+country_event = {
+	id = mod3.999
+	title = mod3.999.t
+	desc = mod3.999.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		mod3_test_effect = yes
+    }
+	
+	option = {
+		
+	}
+}
