@@ -317,6 +317,17 @@ mod3_dip_dev_yearly_1_effect = {
         export_to_variable = { which = mod3_dip_dev_buff_1 value = trigger_value:base_production }
         multiply_variable = { which = mod3_dip_dev_buff_1 which = mod3_dev_buff_modifier }
         export_to_variable = { which = mod3_province_trade_power value = trigger_value:province_trade_power }
+        # 更高的贸易竞争力可以提供更多的dip_dev_buff，所以这并不是一个零和博弈
+        # 贸易竞争力为x，则乘数为 (10x+100)/(x+100)
+        set_variable = { which = var1 value = 10 }
+        multiply_variable = { which = var1 which = mod3_province_trade_power }
+        change_variable = { which = var1 value = 100 }
+        set_variable = { which = var2 which = mod3_province_trade_power }
+        change_variable = { which = var2 value = 100 }
+        divide_variable = { which = var1 which = var2 }
+        multiply_variable = { which = mod3_dip_dev_buff_1 which = var1}
+        multiply_variable = { which = mod3_dip_dev_buff_2 value = 0.5 }
+
         prev = {
             change_variable = { which = mod3_dip_dev_buff_1 which = prev }
             change_variable = { which = mod3_province_trade_power which = prev }
@@ -333,10 +344,22 @@ mod3_dip_dev_yearly_1_effect = {
 # 各贸易节点结算
 mod3_dip_dev_yearly_2_effect = {
     while = {
-        limit = { any_province = { not = { has_province_flag = mod3_dip_flag } } }
+        limit = { 
+            any_province = { 
+                and = {
+                    is_city = yes 
+                    not = { has_province_flag = mod3_dip_flag } 
+                } 
+            } 
+        }
         random_trade_node = {
             limit = { 
-                any_trade_node_member_province = { not = { has_province_flag = mod3_dip_flag } }
+                any_trade_node_member_province = {
+                    and = {
+                        is_city = yes 
+                        not = { has_province_flag = mod3_dip_flag } 
+                    } 
+                }
             }
             random_country = {
                 limit = { owns = 1 }
@@ -345,9 +368,19 @@ mod3_dip_dev_yearly_2_effect = {
                 set_variable = { which = mod3_province_trade_power value = 0 }
             }
             every_trade_node_member_province = {
+                limit = { is_city = yes }
                 export_to_variable = { which = mod3_dip_dev_buff_2 value = trigger_value:base_production }
                 multiply_variable = { which = mod3_dip_dev_buff_2 which = mod3_dev_buff_modifier }
                 export_to_variable = { which = mod3_province_trade_power value = trigger_value:province_trade_power }
+                
+                set_variable = { which = var1 value = 10 }
+                multiply_variable = { which = var1 which = mod3_province_trade_power }
+                change_variable = { which = var1 value = 100 }
+                set_variable = { which = var2 which = mod3_province_trade_power }
+                change_variable = { which = var2 value = 100 }
+                divide_variable = { which = var1 which = var2 }
+                multiply_variable = { which = mod3_dip_dev_buff_2 which = var1}
+                multiply_variable = { which = mod3_dip_dev_buff_2 value = 0.5 }
                 event_target:mod3_dummy_country = {
                     change_variable = { which = mod3_dip_dev_buff_2 which = prev }
                     change_variable = { which = mod3_province_trade_power which = prev }
@@ -358,12 +391,18 @@ mod3_dip_dev_yearly_2_effect = {
                 divide_variable = { which = mod3_dip_dev_buff_2 which = mod3_province_trade_power }
             }
             every_trade_node_member_province = {
-                set_variable = { which = mod3_dip_dev_buff_2 which = event_target:mod3_dummy_country }
+                limit = { is_city = yes }
+                event_target:mod3_dummy_country = {
+                    prev = {
+                        set_variable = { which = mod3_dip_dev_buff_2 which = prev }
+                    }
+                }
                 multiply_variable = { which = mod3_dip_dev_buff_2 which = mod3_province_trade_power }
                 set_province_flag = mod3_dip_flag
             }
         }
     }
+    every_province = { clr_province_flag = mod3_dip_flag }
 }
 
 mod3_mil_dev_yearly_effect = {
@@ -398,7 +437,57 @@ mod3_mil_dev_yearly_effect = {
 }
 
 mod3_test_effect = {
-    every_province = {
+}
 
+mod3_stat_effect = {
+    every_province = {
+        set_variable = { which = test1 which = mod3_adm_dev_buff_mem }
+        set_variable = { which = test2 which = mod3_dip_dev_buff_mem }
+        set_variable = { which = test3 which = mod3_mil_dev_buff_mem }
+        while = {
+            limit = {
+                check_variable = {
+                    which = test1
+                    value = 0.99
+                }
+            }
+            subtract_variable = {
+                which = test1
+                value = 1
+            }
+            1 = {
+                add_base_tax = 1
+            }
+        }
+        while = {
+            limit = {
+                check_variable = {
+                    which = test2
+                    value = 0.99
+                }
+            }
+            subtract_variable = {
+                which = test2
+                value = 1
+            }
+            1 = {
+                add_base_production = 1
+            }
+        }
+        while = {
+            limit = {
+                check_variable = {
+                    which = test3
+                    value = 0.99
+                }
+            }
+            subtract_variable = {
+                which = test3
+                value = 1
+            }
+            1 = {
+                add_base_manpower = 1
+            }
+        }
     }
 }

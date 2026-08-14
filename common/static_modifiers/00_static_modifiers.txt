@@ -104,7 +104,7 @@ city = {
 	allowed_num_of_manufactories = 1
 
 	# mod3
-	local_development_cost = 1
+	local_development_cost = 0.75
 }
 
 port = {
@@ -289,6 +289,7 @@ development = {
 
 development_scaled = {
 	local_development_cost = 0.03
+}
 
 capital_city = {
 	fort_level = 1
