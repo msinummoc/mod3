@@ -246,6 +246,7 @@ mod3_adm_dev_yearly_effect = {
             if = {
                 limit = { has_port = yes }
                 sea_zone = {
+                    save_event_target_as = mod3_sea_zone
                     if = {
                         limit = { not = { has_province_flag = mod3_adm_2_flag } }
                         set_variable = { which = mod3_adm_dev which = prev }
@@ -255,7 +256,7 @@ mod3_adm_dev_yearly_effect = {
                                     and = {
                                         owned_by = root 
                                         not = { has_province_flag = mod3_adm_2_flag } 
-                                        sea_zone = { province_id = prev }
+                                        sea_zone = { province_id = event_target:mod3_sea_zone }
                                     }
                                 }
                                 set_variable = { which = mod3_adm_dev which = prev }
@@ -270,7 +271,7 @@ mod3_adm_dev_yearly_effect = {
                                 limit = { 
                                     and = { 
                                         not = { has_province_flag = mod3_adm_2_flag } 
-                                        sea_zone = { province_id = prev }
+                                        sea_zone = { province_id = event_target:mod3_sea_zone }
                                     }    
                                 }
                                 set_variable = { which = mod3_adm_dev which = prev }
@@ -332,27 +333,35 @@ mod3_dip_dev_yearly_1_effect = {
 # 各贸易节点结算
 mod3_dip_dev_yearly_2_effect = {
     while = {
-        limit = { any_trade_node = { not = { has_province_flag = mod3_dip_flag } } }
+        limit = { any_province = { not = { has_province_flag = mod3_dip_flag } } }
         random_trade_node = {
-            limit = { not = { has_province_flag = mod3_dip_flag } }
-            set_variable = { which = mod3_dip_dev_buff_2 value = 0 }
-            set_variable = { which = mod3_province_trade_power value = 0 }
+            limit = { 
+                any_trade_node_member_province = { not = { has_province_flag = mod3_dip_flag } }
+            }
+            random_country = {
+                limit = { owns = 1 }
+                save_event_target_as = mod3_dummy_country
+                set_variable = { which = mod3_dip_dev_buff_2 value = 0 }
+                set_variable = { which = mod3_province_trade_power value = 0 }
+            }
             every_trade_node_member_province = {
                 export_to_variable = { which = mod3_dip_dev_buff_2 value = trigger_value:base_production }
                 multiply_variable = { which = mod3_dip_dev_buff_2 which = mod3_dev_buff_modifier }
                 export_to_variable = { which = mod3_province_trade_power value = trigger_value:province_trade_power }
-                prev = {
+                event_target:mod3_dummy_country = {
                     change_variable = { which = mod3_dip_dev_buff_2 which = prev }
                     change_variable = { which = mod3_province_trade_power which = prev }
                 }
             }
-            multiply_variable = { which = mod3_dip_dev_buff_2 value = 1 }
-            divide_variable = { which = mod3_dip_dev_buff_2 which = mod3_province_trade_power }
-            every_trade_node_member_province = {
-                set_variable = { which = mod3_dip_dev_buff_2 which = prev }
-                multiply_variable = { which = mod3_dip_dev_buff_2 which = mod3_province_trade_power }
+            event_target:mod3_dummy_country = {
+                multiply_variable = { which = mod3_dip_dev_buff_2 value = 1 }
+                divide_variable = { which = mod3_dip_dev_buff_2 which = mod3_province_trade_power }
             }
-            set_province_flag = mod3_dip_flag
+            every_trade_node_member_province = {
+                set_variable = { which = mod3_dip_dev_buff_2 which = event_target:mod3_dummy_country }
+                multiply_variable = { which = mod3_dip_dev_buff_2 which = mod3_province_trade_power }
+                set_province_flag = mod3_dip_flag
+            }
         }
     }
 }
