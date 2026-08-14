@@ -17,7 +17,7 @@ country_event = {
 				id = mod3.11
 			}
 		}
-		mod3_mil_dev_effect = yes
+		mod3_mil_dev_yearly_effect = yes
     }
 	
 	option = {
@@ -67,7 +67,7 @@ country_event = {
 				id = mod3.3
 			}
 		}
-		mod3_mil_dev_effect = yes
+		mod3_mil_dev_yearly_effect = yes
     }
 	
 	option = {

@@ -44,3 +44,7 @@ mod3_buff_9 = {
 mod3_buff_10 = {
 	local_development_cost = -10.24
 }
+
+mod3_dev_buff_info = {
+	local_tax_modifier = 0.01
+}

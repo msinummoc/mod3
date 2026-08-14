@@ -1,0 +1,5 @@
+﻿l_english:
+	 mod3_dev_buff_info:0 "development cost from other provinces"
+	 desc_mod3_dev_buff_info:0 "adm buff [ROOT.mod3_adm_dev_buff_mem.GetValue]\ndip buff [ROOT.mod3_dip_dev_buff_mem.GetValue]\nmil buff [ROOT.mod3_mil_dev_buff_mem.GetValue]\nbuff modifier [ROOT.mod3_dev_buff_modifier.GetValue]"
+
+
