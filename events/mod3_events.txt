@@ -12,13 +12,20 @@ country_event = {
 		owns = 1
 	}
 	immediate = {
-		every_country = {
-			country_event = {
-				id = mod3.11
+		if = {
+			limit = { 
+				not = {
+					has_country_flag = mod3_has_init_flag
+				}
 			}
+			every_country = {
+				country_event = {
+					id = mod3.11
+				}
+			}
+			mod3_dip_dev_yearly_2_effect = yes
+			mod3_mil_dev_yearly_effect = yes
 		}
-		mod3_dip_dev_yearly_2_effect = yes
-		mod3_mil_dev_yearly_effect = yes
     }
 	
 	option = {
@@ -111,6 +118,22 @@ country_event = {
 	}
 }
 
+# development growth event
+country_event = {
+	id = mod3.5
+	title = mod3.5.t
+	desc = mod3.5.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		mod3_development_yearly_effect = yes
+    }
+	option = {
+		
+	}
+
+}
 
 country_event = {
 	id = mod3.999
