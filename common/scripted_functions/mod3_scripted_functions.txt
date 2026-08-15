@@ -1,0 +1,60 @@
+
+can_improve_tax = {
+	condition = {
+		tooltip = "AI should slow down"
+		potential = {
+			owner = {
+				ai = yes
+			}
+		}
+		allow = {
+			or = {
+				not = { check_variable = { which = mod3_local_dev_cost value = 1.5 } }
+				development = 30
+				owner = {
+					is_ahead_of_time_in_technology = { tech = adm }
+				}
+			}
+		}
+	}
+}
+
+can_improve_production = {
+	condition = {
+		tooltip = "AI should slow down"
+		potential = {
+			owner = {
+				ai = yes
+			}
+		}
+		allow = {
+			or = {
+				not = { check_variable = { which = mod3_local_dev_cost value = 1.5 } }
+				development = 30
+				owner = {
+					is_ahead_of_time_in_technology = { tech = dip }
+				}
+			}
+		}
+	}
+}
+
+can_improve_manpower = {
+	condition = {
+		tooltip = "AI should slow down"
+		potential = {
+			owner = {
+				ai = yes
+			}
+		}
+		allow = {
+			or = {
+				not = { check_variable = { which = mod3_local_dev_cost value = 1.5 } }
+				development = 30
+				owner = {
+					is_ahead_of_time_in_technology = { tech = mil }
+				}
+			}
+		}
+	}
+}

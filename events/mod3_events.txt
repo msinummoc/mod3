@@ -142,6 +142,11 @@ country_event = {
 	picture = INVENTION_eventPicture
 	hidden = yes
 	is_triggered_only = yes
+	trigger = {
+		any_neighbor_country = {
+			tech_difference = 1
+		}
+	}
 	immediate = {
 		mod3_test_effect = yes
 		
