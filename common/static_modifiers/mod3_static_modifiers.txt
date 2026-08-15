@@ -1,0 +1,70 @@
+
+
+city = {
+	local_tax_modifier = 0.25
+	allowed_num_of_buildings = 2
+	local_sailors_modifier = 0.25
+	garrison_growth = 0.05
+	allowed_num_of_manufactories = 1
+
+	# mod3
+	local_development_cost = 0.75
+}
+
+
+development = {
+	allowed_num_of_buildings = 0.1
+	supply_limit_modifier = 0.02
+	local_missionary_strength = -0.001
+	land_forcelimit	= 0.1			# special case, affected by autonomy
+	naval_forcelimit = 0.1			# special case, affected by autonomy & set to 0 by code if not port
+	local_sailors = 60			# special case, affected by autonomy & set to 0 by code if not port
+	province_trade_power_value = 0.3 # 0.2
+	local_amount_of_banners = 0.066
+	local_amount_of_cawa = 0.125
+	local_amount_of_carolean = 0.1
+	local_amount_of_hussars = 0.01
+
+	# mod3
+	province_trade_power_modifier = 0.04
+}
+
+development_scaled = {
+	local_development_cost = 0.05 # 0.03
+}
+
+
+devastation = {
+	trade_goods_size_modifier = -2
+	supply_limit_modifier = -0.5
+	local_institution_spread = -2.0
+	local_development_cost = 1 # 0.2
+	local_manpower_modifier = -2.0
+	local_sailors_modifier = -2.0
+	local_hostile_movement_speed = -0.25
+	local_friendly_movement_speed = -0.25
+
+	# mod3
+	province_trade_power_modifier = -2
+}
+
+
+
+provincial_tax_income = {
+	regiment_recruit_speed = -0.02
+	local_great_project_upgrade_time = -0.01
+	local_build_time = -0.01
+	local_institution_spread = 0.02
+	local_development_cost = 0.03
+}
+
+provincial_production_size = {
+	trade_goods_size = 0.2
+	ship_recruit_speed = -0.01
+	local_development_cost = 0.03
+}
+
+manpower = {
+	garrison_growth = 0.01					#1% increase from manpower.
+	local_development_cost = 0.03
+}
