@@ -33,7 +33,7 @@ marketplace = {
 
 	modifier = {
 		province_trade_power_modifier = 0.5
-		province_trade_power_value = 2
+		province_trade_power_value = 1
 	}
 	on_built = {
 		add_development_from_building = {
@@ -1328,7 +1328,7 @@ trade_depot = {
 
 	modifier = {
 		province_trade_power_modifier = 1
-		province_trade_power_value = 4
+		province_trade_power_value = 2
 	}
 
 	on_built = {
@@ -1691,7 +1691,7 @@ stock_exchange = {
 
 	modifier = {
 		province_trade_power_modifier = 1.25
-		province_trade_power_value = 6
+		province_trade_power_value = 3
 	}
 
 	on_built = {

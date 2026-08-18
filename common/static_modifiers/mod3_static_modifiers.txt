@@ -26,7 +26,7 @@ development = {
 	local_amount_of_hussars = 0.01
 
 	# mod3
-	province_trade_power_modifier = 0.04
+	province_trade_power_modifier = 0.02
 }
 
 development_scaled = {
