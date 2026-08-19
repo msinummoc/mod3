@@ -7,20 +7,19 @@ on_startup = {
 on_yearly_pulse = {
 	events = {
 		mod3.2
-		mod3.5
 	}
 }
 
 on_adm_development = {
-	
+	change_variable = { which = mod3_dev_momentum value = 1 }
 }
 
 on_dip_development = {
-	
+	change_variable = { which = mod3_dev_momentum value = 1 }
 }
 
 on_mil_development = {
-	
+	change_variable = { which = mod3_dev_momentum value = 1 }
 }
 
 on_adm_exploited = {

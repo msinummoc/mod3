@@ -24,7 +24,7 @@ country_event = {
 				}
 			}
 			mod3_dip_dev_yearly_2_effect = yes
-			mod3_mil_dev_yearly_effect = yes
+			mod3_mil_dev_yearly_2_effect = yes
 		}
     }
 	
@@ -76,7 +76,13 @@ country_event = {
 			}
 		}
 		mod3_dip_dev_yearly_2_effect = yes
-		mod3_mil_dev_yearly_effect = yes
+		mod3_mil_dev_yearly_2_effect = yes
+		every_country = {
+			country_event = {
+				id = mod3.5
+				days = 3
+			}
+		}
     }
 	
 	option = {
@@ -143,13 +149,9 @@ country_event = {
 	hidden = yes
 	is_triggered_only = yes
 	trigger = {
-		any_neighbor_country = {
-			tech_difference = 1
-		}
 	}
 	immediate = {
 		mod3_test_effect = yes
-		
     }
 	
 	option = {
