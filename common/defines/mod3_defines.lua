@@ -61,3 +61,5 @@
 -- NDefines.NAIEconomy.LOAN_REPAYMENT_SAVINGS_PRIORITY_WARTIME = 0.5  -- 0.5
 
 NDefines.NCountry.PS_IMPROVE_PROVINCE_BASE = 40 -- 50
+
+NDefines.NCountry.TECH_TIME_COST = 1 -- 0.3

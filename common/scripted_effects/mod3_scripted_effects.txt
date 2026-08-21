@@ -27,6 +27,9 @@ mod3_init_effect = {
         }
     }
     mod3_yearly_effect = yes
+    every_owned_province = {
+        change_variable = { which = mod3_dev_momentum value = 0.3 }
+    }
 }
 
 mod3_yearly_effect = {
@@ -612,6 +615,12 @@ mod3_development_yearly_effect = {
             change_variable = { which = var3 value = 1 }
             multiply_variable = { which = mod3_dice_helper_input which = var3 }
 
+            set_variable = { which = var3 which = mod3_dev_momentum }
+            change_variable = { which = var3 value = 1 }
+            set_variable = { which = var2 value = 1 }
+            divide_variable = { which = var2 which = var3 }
+            multiply_variable = { which = mod3_dice_helper_input which = var2 }
+
             mod3_dice_helper_effect = yes
             if = {
                 limit = { check_variable = { which = mod3_dice_helper_output value = 1 } }
@@ -703,6 +712,12 @@ mod3_development_yearly_effect = {
                     }
                 }
                 add_devastation = -10
+                # momentum effect
+                change_variable = { which = mod3_dev_momentum value = -0.5 }
+                if = {
+                    limit = { not = { check_variable = { which = mod3_dev_momentum value = 0 } } }
+                    set_variable = { which = mod3_dev_momentum value = 0 }
+                }
                 set_variable = { which = var4 value = 0 }
             }
         }
@@ -748,6 +763,10 @@ mod3_development_yearly_effect = {
             change_variable = { which = var3 value = 1 }
             multiply_variable = { which = mod3_dice_helper_input which = var3 }
 
+            set_variable = { which = var3 which = mod3_dev_momentum }
+            change_variable = { which = var3 value = 1 }
+            multiply_variable = { which = mod3_dice_helper_input which = var3 }
+            
             mod3_dice_helper_effect = yes
             if = {
                 limit = { check_variable = { which = mod3_dice_helper_output value = 1 } }
@@ -844,7 +863,20 @@ mod3_development_yearly_effect = {
                     }
                 }
                 # momentum effect
-                change_variable = { which = mod3_dev_momentum value = 1 }
+                change_variable = { which = mod3_dev_momentum value = 0.5 }
+                if = {
+                    limit = { check_variable = { which = mod3_dev_momentum value = 5 } }
+                    set_variable = { which = mod3_dev_momentum value = 5 }
+                }
+            }
+        }
+        if = {
+            limit = {
+                check_variable = { which = mod3_dev_momentum value = 0.1 }
+            }
+            random_list = {
+                80 = { }
+                20 = { subtract_variable = { which = mod3_dev_momentum value = 0.1 } }
             }
         }
     }
@@ -880,8 +912,19 @@ mod3_test_effect = {
                 }
                 add_base_manpower = 1
             }
-            else = {
-                add_base_production = 1
+            set_variable = {
+                which = mod3_dice_helper_input
+                value = 100
+            }
+            mod3_dice_helper_effect = yes
+            if = {
+                limit = {
+                    check_variable = {
+                        which = mod3_dice_helper_output
+                        value = 1
+                    }
+                }
+                add_base_tax = 1
             }
             
             subtract_variable = {

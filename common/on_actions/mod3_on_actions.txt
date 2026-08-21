@@ -11,15 +11,27 @@ on_yearly_pulse = {
 }
 
 on_adm_development = {
-	change_variable = { which = mod3_dev_momentum value = 1 }
+	change_variable = { which = mod3_dev_momentum value = 0.25 }
+	if = {
+		limit = { check_variable = { which = mod3_dev_momentum value = 5 } }
+		set_variable = { which = mod3_dev_momentum value = 5 }
+	}
 }
 
 on_dip_development = {
-	change_variable = { which = mod3_dev_momentum value = 1 }
+	change_variable = { which = mod3_dev_momentum value = 0.25 }
+	if = {
+		limit = { check_variable = { which = mod3_dev_momentum value = 5 } }
+		set_variable = { which = mod3_dev_momentum value = 5 }
+	}
 }
 
 on_mil_development = {
-	change_variable = { which = mod3_dev_momentum value = 1 }
+	change_variable = { which = mod3_dev_momentum value = 0.25 }
+	if = {
+		limit = { check_variable = { which = mod3_dev_momentum value = 5 } }
+		set_variable = { which = mod3_dev_momentum value = 5 }
+	}
 }
 
 on_adm_exploited = {
