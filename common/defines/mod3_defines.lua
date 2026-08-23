@@ -62,4 +62,5 @@
 
 NDefines.NCountry.PS_IMPROVE_PROVINCE_BASE = 40 -- 50
 
-NDefines.NCountry.TECH_TIME_COST = 1 -- 0.3
+NDefines.NCountry.TECH_TIME_COST = 0.75 -- 0.3
+NDefines.NCountry.POWER_MAX = 1999

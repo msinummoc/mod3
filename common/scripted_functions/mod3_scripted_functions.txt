@@ -10,11 +10,21 @@ can_improve_tax = {
 		allow = {
 			or = {
 				not = { check_variable = { which = mod3_local_dev_cost value = 1.5 } }
-				development = 30
 				owner = {
 					is_ahead_of_time_in_technology = { tech = adm }
 				}
 			}
+		}
+	}
+	condition = {
+		tooltip = "AI should stop"
+		potential = {
+			owner = {
+				ai = yes
+			}
+		}
+		allow = {
+			always = yes
 		}
 	}
 }
@@ -30,11 +40,21 @@ can_improve_production = {
 		allow = {
 			or = {
 				not = { check_variable = { which = mod3_local_dev_cost value = 1.5 } }
-				development = 30
 				owner = {
 					is_ahead_of_time_in_technology = { tech = dip }
 				}
 			}
+		}
+	}
+	condition = {
+		tooltip = "AI should stop"
+		potential = {
+			owner = {
+				ai = yes
+			}
+		}
+		allow = {
+			always = yes
 		}
 	}
 }
@@ -50,11 +70,21 @@ can_improve_manpower = {
 		allow = {
 			or = {
 				not = { check_variable = { which = mod3_local_dev_cost value = 1.5 } }
-				development = 30
 				owner = {
 					is_ahead_of_time_in_technology = { tech = mil }
 				}
 			}
+		}
+	}
+	condition = {
+		tooltip = "AI should stop"
+		potential = {
+			owner = {
+				ai = yes
+			}
+		}
+		allow = {
+			always = yes
 		}
 	}
 }
