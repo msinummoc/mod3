@@ -70,7 +70,42 @@ country_event = {
 		owns = 1
 	}
 	immediate = {
+		# 全局变量
+		random_list = {
+			9 = {}
+			1 = {
+				random_list = {
+					1 = { set_variable = { which = mod3_age_dev_cost value = -0.3 } }
+					6 = { set_variable = { which = mod3_age_dev_cost value = -0.2 } }
+					15 = { set_variable = { which = mod3_age_dev_cost value = -0.1 } }
+					20 = { set_variable = { which = mod3_age_dev_cost value = 0 } }
+					15 = { set_variable = { which = mod3_age_dev_cost value = 0.1 } }
+					6 = { set_variable = { which = mod3_age_dev_cost value = 0.2 } }
+					1 = { set_variable = { which = mod3_age_dev_cost value = 0.3 } }
+				}
+				
+				if = {
+					limit = { current_age = age_of_discovery }
+					change_variable = { which = mod3_age_dev_cost value = 0 }
+				}
+				else_if = {
+					limit = { current_age = age_of_reformation }
+					change_variable = { which = mod3_age_dev_cost value = -0.05 }
+				}
+				else_if = {
+					limit = { current_age = age_of_absolutism }
+					change_variable = { which = mod3_age_dev_cost value = 0.1 }
+				}
+				else_if = {
+					limit = { current_age = age_of_revolutions }
+					change_variable = { which = mod3_age_dev_cost value = -0.1 }
+				}
+			}
+			
+		}
+		
 		every_country = {
+			set_variable = { which = mod3_age_dev_cost which = prev }
 			country_event = {
 				id = mod3.3
 			}
@@ -138,8 +173,38 @@ country_event = {
 	option = {
 		
 	}
-
 }
+
+
+province_event = {
+	id = mod3.6
+	title = mod3.6.t
+	desc = mod3.6.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				is_capital = no
+				owner = {
+					government = native
+				}
+				controller = {
+					NOT = {
+						government = native
+					}
+				}
+			}
+			decolonize = yes
+		}
+	}
+
+	option = {
+		
+	}
+}
+
 
 country_event = {
 	id = mod3.999
