@@ -45,6 +45,50 @@ mod3_buff_10 = {
 	local_development_cost = -10.24
 }
 
+mod3_debuff_0 = {
+	local_development_cost = 0.01
+}
+
+mod3_debuff_1 = {
+	local_development_cost = 0.02
+}
+
+mod3_debuff_2 = {
+	local_development_cost = 0.04
+}
+
+mod3_debuff_3 = {
+	local_development_cost = 0.08
+}
+
+mod3_debuff_4 = {
+	local_development_cost = 0.16
+}
+
+mod3_debuff_5 = {
+	local_development_cost = 0.32
+}
+
+mod3_debuff_6 = {
+	local_development_cost = 0.64
+}
+
+mod3_debuff_7 = {
+	local_development_cost = 1.28
+}
+
+mod3_debuff_8 = {
+	local_development_cost = 2.56
+}
+
+mod3_debuff_9 = {
+	local_development_cost = 5.12
+}
+
+mod3_debuff_10 = {
+	local_development_cost = 10.24
+}
+
 mod3_dev_buff_info = {
 	local_tax_modifier = 0.01
 }

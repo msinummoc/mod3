@@ -169,72 +169,8 @@ mod3_yearly_after_effect = {
         set_variable = { which = mod3_mil_dev_buff_1_mem which = mod3_mil_dev_buff_1 }
         set_variable = { which = mod3_mil_dev_buff_2_mem which = mod3_mil_dev_buff_2 }
         set_variable = { which = mod3_dev_lag_debuff_mem which = mod3_dev_lag_debuff }
-        remove_province_modifier = mod3_buff_10
-        remove_province_modifier = mod3_buff_9
-        remove_province_modifier = mod3_buff_8
-        remove_province_modifier = mod3_buff_7
-        remove_province_modifier = mod3_buff_6
-        remove_province_modifier = mod3_buff_5
-        remove_province_modifier = mod3_buff_4
-        remove_province_modifier = mod3_buff_3
-        remove_province_modifier = mod3_buff_2
-        remove_province_modifier = mod3_buff_1
-        remove_province_modifier = mod3_buff_0
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 1024 } }
-            add_province_modifier = { name = mod3_buff_10 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 1024 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 512 } }
-            add_province_modifier = { name = mod3_buff_9 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 512 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 256 } }
-            add_province_modifier = { name = mod3_buff_8 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 256 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 128 } }
-            add_province_modifier = { name = mod3_buff_7 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 128 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 64 } }
-            add_province_modifier = { name = mod3_buff_6 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 64 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 32 } }
-            add_province_modifier = { name = mod3_buff_5 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 32 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 16 } }
-            add_province_modifier = { name = mod3_buff_4 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 16 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 8 } }
-            add_province_modifier = { name = mod3_buff_3 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 8 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 4 } }
-            add_province_modifier = { name = mod3_buff_2 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 4 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 2 } }
-            add_province_modifier = { name = mod3_buff_1 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 2 }
-        }
-        if = {
-            limit = { check_variable = { which = mod3_dev_buff value = 1 } }
-            add_province_modifier = { name = mod3_buff_0 duration = -1 hidden = yes }
-            subtract_variable = { which = mod3_dev_buff value = 1 }
-        }
+
+        mod3_apply_dev_cost_modifier_effect = yes
         set_variable = { which = mod3_adm_dev_buff value = 0 }
         if = {
             limit = { not = { has_province_modifier = mod3_dev_buff_info } } 
@@ -587,10 +523,15 @@ mod3_development_yearly_effect = {
         }
         else_if = {
             limit = { check_variable = { which = mod3_dev which = mod3_dev_lag } }
-            change_variable = { which = mod3_dev_lag value = 0.02 }
+            change_variable = { which = mod3_dev_lag value = 0.01 }
             multiply_variable = { which = mod3_dev_lag value = 1.001 }
             set_variable = { which = var3 which = mod3_dev }
             subtract_variable = { which = var3 which = mod3_dev_lag }
+            if = {
+                limit = { check_variable = { which = var3 value = 0 } }
+                multiply_variable = { which = var3 value = 0.02 }
+                change_variable = { which = mod3_dev_lag which = var3 }
+            }
         }
 
         set_variable = { which = var4 value = 1 }
@@ -684,7 +625,7 @@ mod3_development_yearly_effect = {
         # 发展度提高
         if = {
             limit = { check_variable = { which = var4 value = 1 } }
-            set_variable = { which = mod3_dice_helper_input value = 0.5 }
+            set_variable = { which = mod3_dice_helper_input value = 0.25 }
             if = {
                 limit = { devastation = 1 }
                 multiply_variable = { which = mod3_dice_helper_input value = 0.25 }
@@ -824,6 +765,10 @@ mod3_reevalution_effect = {
     change_variable = { which = mod3_dev_buff which = mod3_dev_lag_debuff }
     set_variable = { which = mod3_dev_lag_debuff_mem which = mod3_dev_lag_debuff }
 
+    mod3_apply_dev_cost_modifier_effect = yes
+}
+
+mod3_apply_dev_cost_modifier_effect = {
     remove_province_modifier = mod3_buff_10
     remove_province_modifier = mod3_buff_9
     remove_province_modifier = mod3_buff_8
@@ -835,62 +780,53 @@ mod3_reevalution_effect = {
     remove_province_modifier = mod3_buff_2
     remove_province_modifier = mod3_buff_1
     remove_province_modifier = mod3_buff_0
-    
+    remove_province_modifier = mod3_debuff_10
+    remove_province_modifier = mod3_debuff_9
+    remove_province_modifier = mod3_debuff_8
+    remove_province_modifier = mod3_debuff_7
+    remove_province_modifier = mod3_debuff_6
+    remove_province_modifier = mod3_debuff_5
+    remove_province_modifier = mod3_debuff_4
+    remove_province_modifier = mod3_debuff_3
+    remove_province_modifier = mod3_debuff_2
+    remove_province_modifier = mod3_debuff_1
+    remove_province_modifier = mod3_debuff_0
     if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 1024 } }
-        add_province_modifier = { name = mod3_buff_10 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 1024 }
+        limit = { not = { check_variable = { which = mod3_dev_buff value = 0 } } }
+        multiply_variable = { which = mod3_dev_buff value = -1 }
+        mod3_apply_dev_cost_debuff_effect = yes
     }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 512 } }
-        add_province_modifier = { name = mod3_buff_9 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 512 }
+    else = {
+        mod3_apply_dev_cost_buff_effect = yes
     }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 256 } }
-        add_province_modifier = { name = mod3_buff_8 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 256 }
-    }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 128 } }
-        add_province_modifier = { name = mod3_buff_7 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 128 }
-    }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 64 } }
-        add_province_modifier = { name = mod3_buff_6 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 64 }
-    }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 32 } }
-        add_province_modifier = { name = mod3_buff_5 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 32 }
-    }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 16 } }
-        add_province_modifier = { name = mod3_buff_4 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 16 }
-    }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 8 } }
-        add_province_modifier = { name = mod3_buff_3 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 8 }
-    }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 4 } }
-        add_province_modifier = { name = mod3_buff_2 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 4 }
-    }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 2 } }
-        add_province_modifier = { name = mod3_buff_1 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 2 }
-    }
-    if = {
-        limit = { check_variable = { which = mod3_dev_buff value = 1 } }
-        add_province_modifier = { name = mod3_buff_0 duration = -1 hidden = yes }
-        subtract_variable = { which = mod3_dev_buff value = 1 }
-    }
+}
+
+mod3_apply_dev_cost_debuff_effect = {
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 1024 } } add_province_modifier = { name = mod3_debuff_10 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 1024 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 512 } } add_province_modifier = { name = mod3_debuff_9 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 512 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 256 } } add_province_modifier = { name = mod3_debuff_8 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 256 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 128 } } add_province_modifier = { name = mod3_debuff_7 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 128 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 64 } } add_province_modifier = { name = mod3_debuff_6 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 64 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 32 } } add_province_modifier = { name = mod3_debuff_5 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 32 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 16 } } add_province_modifier = { name = mod3_debuff_4 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 16 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 8 } } add_province_modifier = { name = mod3_debuff_3 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 8 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 4 } } add_province_modifier = { name = mod3_debuff_2 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 4 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 2 } } add_province_modifier = { name = mod3_debuff_1 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 2 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 1 } } add_province_modifier = { name = mod3_debuff_0 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 1 } }
+}
+
+mod3_apply_dev_cost_buff_effect = {
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 1024 } } add_province_modifier = { name = mod3_buff_10 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 1024 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 512 } } add_province_modifier = { name = mod3_buff_9 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 512 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 256 } } add_province_modifier = { name = mod3_buff_8 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 256 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 128 } } add_province_modifier = { name = mod3_buff_7 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 128 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 64 } } add_province_modifier = { name = mod3_buff_6 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 64 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 32 } } add_province_modifier = { name = mod3_buff_5 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 32 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 16 } } add_province_modifier = { name = mod3_buff_4 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 16 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 8 } } add_province_modifier = { name = mod3_buff_3 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 8 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 4 } } add_province_modifier = { name = mod3_buff_2 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 4 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 2 } } add_province_modifier = { name = mod3_buff_1 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 2 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff value = 1 } } add_province_modifier = { name = mod3_buff_0 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 1 } }
 }
 
 mod3_test_effect = {

@@ -138,11 +138,13 @@ development = {
 	local_amount_of_hussars = 0.01
 
 	# mod3
-	province_trade_power_modifier = 0.02
+	province_trade_power_modifier = 0.01
+	trade_goods_size_modifier = 0.01
+	local_tax_modifier = 0.01
 }
 
 development_scaled = {
-	local_development_cost = 0.05 # 0.03
+	local_development_cost = 0.03
 }
 
 all_nations = {
@@ -206,15 +208,21 @@ provincial_tax_income = {
 	local_great_project_upgrade_time = -0.01
 	local_build_time = -0.01
 	local_institution_spread = 0.02
+
+	local_development_cost = 0.03
 }
 
 provincial_production_size = {
 	trade_goods_size = 0.2
 	ship_recruit_speed = -0.01
+
+	local_development_cost = 0.03
 }
 
 manpower = {
 	garrison_growth = 0.01					#1% increase from manpower.
+
+	local_development_cost = 0.03
 }
 
 positive_mandate = {	# 100% strength at 100 mandate, 0% at 50 mandate
