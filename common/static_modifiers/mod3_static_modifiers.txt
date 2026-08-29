@@ -44,7 +44,7 @@ ai_nation = {
 
 	# mod3
 	all_estate_loyalty_equilibrium = 0.3
-	monthly_ottoman_decadence = -1
+	monthly_ottoman_decadence = -0.5
 }
 
 
@@ -120,7 +120,7 @@ city = {
 	allowed_num_of_manufactories = 1
 
 	# mod3
-	local_development_cost = 1
+	local_development_cost = 0.75
 }
 
 
@@ -144,7 +144,7 @@ development = {
 }
 
 development_scaled = {
-	local_development_cost = 0.03
+	local_development_cost = 0.05
 }
 
 all_nations = {
@@ -255,4 +255,13 @@ knowledge_sharing = {
 country_development = {
 	horde_unity = -3
 	development_cost_modifier = -0.5
+}
+
+non_accepted_culture = {
+	monthly_persian_influence = -0.01
+	local_tax_modifier = -0.33
+	local_missionary_strength = -0.02
+	local_manpower_modifier = -0.33
+	local_sailors_modifier = -0.2
+	local_unrest = 5
 }

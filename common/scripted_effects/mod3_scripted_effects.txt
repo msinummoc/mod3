@@ -28,11 +28,13 @@ mod3_init_effect = {
         else_if = {
             limit = { 
                 capital_scope = { superregion = india_superregion } 
-                development = 100
+                development = 50
             }
-            add_base_manpower = 1
-            add_base_tax = 1
-            add_base_production = 1
+            capital_scope = {
+                add_base_manpower = 1
+                add_base_tax = 1
+                add_base_production = 1
+            }
         }
     }
     mod3_yearly_effect = yes
@@ -47,7 +49,6 @@ mod3_init_effect = {
 }
 
 mod3_yearly_effect = {
-    
     if = {
         limit = { not = { has_country_modifier = mod3_less_governing_capacity } }
         add_country_modifier = {
@@ -55,10 +56,36 @@ mod3_yearly_effect = {
             duration = -1
         }
     }
+    set_variable = { which = mod3_num_perm_claim value = 0 }
+    every_country = {
+        limit = {
+            prev = {
+                or = {
+                    claim = prev
+                    core_claim = prev
+                }
+            }
+        }
+        if = {
+            limit = {
+                prev = { core_claim = prev }
+            }
+            prev = { change_variable = { which = mod3_num_perm_claim value = 1 } }
+        }
+        else_if = {
+            limit = {
+                any_owned_province = {
+                    is_permanent_claim = prev
+                }
+            }
+            prev = { change_variable = { which = mod3_num_perm_claim value = 1 } }
+        }
+    }
+    
     every_owned_province = {
         # 每个省份的贡献系数
         export_to_variable = { which = mod3_dev_buff_modifier value = trigger_value:development }
-        divide_variable = { which = mod3_dev_buff_modifier value = 10 }
+        divide_variable = { which = mod3_dev_buff_modifier value = 10 } 
         round_variable = { which = mod3_dev_buff_modifier value = -1 } # 向下取整
         if = {
             limit = { check_variable = { which = mod3_dev_buff_modifier value = 7 } }
@@ -138,23 +165,13 @@ mod3_yearly_after_effect = {
         # over dev lag
         set_variable = { which = var3 which = mod3_dev }
         subtract_variable = { which = var3 which = mod3_dev_lag }
-        set_variable = { which = var2 value = -50 }
-        set_variable = { which = mod3_dev_lag_debuff value = 0 }
-        while = {
-            limit = {
-                check_variable = { which = var3 value = 10 }
-            }
-            change_variable = { which = mod3_dev_lag_debuff which = var2 }
-            change_variable = { which = var2 value = -50 }
-            change_variable = { which = var3 value = -10 }
-        }
+        set_variable = { which = mod3_dev_lag_debuff value = -5 }
+        multiply_variable = { which = mod3_dev_lag_debuff which = var3 }
         if = {
-            limit = {
-                check_variable = { which = var3 value = 0 }
+            limit= {
+                check_variable = { which = mod3_dev_lag_debuff value = 0 }
             }
-            multiply_variable = { which = var2 value = 0.1 }
-            multiply_variable = { which = var2 which = var3 }
-            change_variable = { which = mod3_dev_lag_debuff which = var2 }
+            set_variable = { which = mod3_dev_lag_debuff value = 0}
         }
 
         set_variable = { which = mod3_dev_buff which = mod3_adm_dev_buff }
@@ -524,12 +541,12 @@ mod3_development_yearly_effect = {
         else_if = {
             limit = { check_variable = { which = mod3_dev which = mod3_dev_lag } }
             change_variable = { which = mod3_dev_lag value = 0.01 }
-            multiply_variable = { which = mod3_dev_lag value = 1.001 }
+            multiply_variable = { which = mod3_dev_lag value = 1.0005 }
             set_variable = { which = var3 which = mod3_dev }
             subtract_variable = { which = var3 which = mod3_dev_lag }
             if = {
                 limit = { check_variable = { which = var3 value = 0 } }
-                multiply_variable = { which = var3 value = 0.02 }
+                multiply_variable = { which = var3 value = 0.005 }
                 change_variable = { which = mod3_dev_lag which = var3 }
             }
         }
@@ -540,7 +557,7 @@ mod3_development_yearly_effect = {
             limit = {
                 development = 4
             }
-            set_variable = { which = mod3_dice_helper_input value = 1 }
+            set_variable = { which = mod3_dice_helper_input value = 0.5 }
             if = {
                 limit = { not = { check_variable = { which = mod3_dev which = mod3_dev_lag } } }
                 multiply_variable = { which = mod3_dice_helper_input value = 0.5 }
@@ -549,7 +566,7 @@ mod3_development_yearly_effect = {
                 limit = { devastation = 1 }
                 export_to_variable = { which = mod3_devast value = trigger_value:devastation }
                 multiply_variable = { which = mod3_devast value = 0.2 }
-                change_variable = { which = mod3_devast value = 5 }
+                change_variable = { which = mod3_devast value = 6 }
                 multiply_variable = { which = mod3_dice_helper_input which = mod3_devast }
             }
 
@@ -566,14 +583,15 @@ mod3_development_yearly_effect = {
             divide_variable = { which = var2 which = var3 }
             multiply_variable = { which = mod3_dice_helper_input which = var2 }
 
-            set_variable = { which = mod3_dev_decrease_probability which = mod3_dice_helper_input }
-            multiply_variable = { which = mod3_dev_decrease_probability value = 100 }
-            divide_variable = { which = mod3_dev_decrease_probability value = 128 }
 
-            change_variable = { which = var3 which = mod3_dice_helper_input }
+            set_variable = { which = var3 which = mod3_dice_helper_input }
             change_variable = { which = var3 value = 128 }
             divide_variable = { which = mod3_dice_helper_input which = var3 }
             multiply_variable = { which = mod3_dice_helper_input value = 128 }
+
+            set_variable = { which = mod3_dev_decrease_probability which = mod3_dice_helper_input }
+            multiply_variable = { which = mod3_dev_decrease_probability value = 100 }
+            divide_variable = { which = mod3_dev_decrease_probability value = 128 }
 
             mod3_dice_helper_effect = yes
             if = {
@@ -625,7 +643,7 @@ mod3_development_yearly_effect = {
         # 发展度提高
         if = {
             limit = { check_variable = { which = var4 value = 1 } }
-            set_variable = { which = mod3_dice_helper_input value = 0.25 }
+            set_variable = { which = mod3_dice_helper_input value = 0.3 }
             if = {
                 limit = { devastation = 1 }
                 multiply_variable = { which = mod3_dice_helper_input value = 0.25 }
@@ -654,14 +672,15 @@ mod3_development_yearly_effect = {
                 multiply_variable = { which = mod3_dice_helper_input which = var3 }
             }
 
-            set_variable = { which = mod3_dev_improve_probability which = mod3_dice_helper_input }
-            multiply_variable = { which = mod3_dev_improve_probability value = 100 }
-            divide_variable = { which = mod3_dev_improve_probability value = 128 }
 
-            change_variable = { which = var3 which = mod3_dice_helper_input }
+            set_variable = { which = var3 which = mod3_dice_helper_input }
             change_variable = { which = var3 value = 128 }
             divide_variable = { which = mod3_dice_helper_input which = var3 }
             multiply_variable = { which = mod3_dice_helper_input value = 128 }
+
+            set_variable = { which = mod3_dev_improve_probability which = mod3_dice_helper_input }
+            multiply_variable = { which = mod3_dev_improve_probability value = 100 }
+            divide_variable = { which = mod3_dev_improve_probability value = 128 }
             
             mod3_dice_helper_effect = yes
             if = {
@@ -703,7 +722,7 @@ mod3_development_yearly_effect = {
                     }
                 }
                 # momentum effect
-                change_variable = { which = mod3_dev_momentum value = 0.5 }
+                change_variable = { which = mod3_dev_momentum value = 0.75 }
                 if = {
                     limit = { check_variable = { which = mod3_dev_momentum value = 5 } }
                     set_variable = { which = mod3_dev_momentum value = 5 }
@@ -715,19 +734,31 @@ mod3_development_yearly_effect = {
             limit = {
                 check_variable = { which = mod3_dev_momentum value = 0.1 }
             }
-            multiply_variable = { which = mod3_dev_momentum value = 0.95 }
+            multiply_variable = { which = mod3_dev_momentum value = 0.85 }
             if = {
-                limit = { devastation = 1}
-                multiply_variable = { which = mod3_dev_momentum value = 0.9 }
+                limit = { devastation = 1 }
+                multiply_variable = { which = mod3_dev_momentum value = 0.89 }
             }
             else_if = {
                 limit = { devastation = 10 }
-                multiply_variable = { which = mod3_dev_momentum value = 0.8 }
+                multiply_variable = { which = mod3_dev_momentum value = 0.7 }
             }
             else_if = {
                 limit = { devastation = 20 }
-                multiply_variable = { which = mod3_dev_momentum value = 0.7 }
+                multiply_variable = { which = mod3_dev_momentum value = 0.6 }
             }
+        }
+        random_list = {
+            10 = {
+                change_variable = { which = mod3_dev_momentum value = 0.2 }
+            }
+            10 = {
+                change_variable = { which = mod3_dev_momentum value = -0.2 }
+            }
+        }
+        if = {
+            limit = { not = { check_variable =  { which = mod3_dev_momentum value = 0.1 } } }
+            set_variable = { which = mod3_dev_momentum value = 0.1 }
         }
         set_variable = { which = mod3_dev_vs_dev_lag which = mod3_dev }
         divide_variable = { which = mod3_dev_vs_dev_lag which = mod3_dev_lag }
@@ -740,23 +771,13 @@ mod3_reevalution_effect = {
     export_to_variable = { which = mod3_dev value = trigger_value:development }
     set_variable = { which = var3 which = mod3_dev }
     subtract_variable = { which = var3 which = mod3_dev_lag }
-    set_variable = { which = var2 value = -50 }
-    set_variable = { which = mod3_dev_lag_debuff value = 0 }
-    while = {
-        limit = {
-            check_variable = { which = var3 value = 10 }
-        }
-        change_variable = { which = mod3_dev_lag_debuff which = var2 }
-        change_variable = { which = var2 value = -50 }
-        change_variable = { which = var3 value = -10 }
-    }
+    set_variable = { which = mod3_dev_lag_debuff value = -5 }
+    multiply_variable = { which = mod3_dev_lag_debuff which = var3 }
     if = {
-        limit = {
-            check_variable = { which = var3 value = 0 }
+        limit= {
+            check_variable = { which = mod3_dev_lag_debuff value = 0 }
         }
-        multiply_variable = { which = var2 value = 0.1 }
-        multiply_variable = { which = var2 which = var3 }
-        change_variable = { which = mod3_dev_lag_debuff which = var2 }
+        set_variable = { which = mod3_dev_lag_debuff value = 0}
     }
 
     set_variable = { which = mod3_dev_buff which = mod3_adm_dev_buff_mem }
@@ -830,7 +851,10 @@ mod3_apply_dev_cost_buff_effect = {
 }
 
 mod3_test_effect = {
-    mod3_dip_dev_yearly_2_effect = yes
+    set_variable = {
+        which = test1
+        which = mod3_num_perm_claim
+    }
 }
 
 mod3_stat_effect = {

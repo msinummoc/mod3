@@ -1,19 +1,16 @@
 #
 
-latent_trade_goods = {
-	coal
-}
 owner = MNG
 controller = MNG
 add_core = MNG
-culture = shandong_culture
+culture = chihan
 religion = confucianism
-capital = "Liaodong"
-trade_goods = iron
+capital = "aˆ4l"
+trade_goods = copper
 hre = no
 base_tax = 4
 base_production = 4
-base_manpower = 2
+base_manpower = 3
 is_city = yes
 
 discovered_by = chinese

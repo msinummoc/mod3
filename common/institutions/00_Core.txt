@@ -128,6 +128,12 @@ feudalism = {
 		owner = {
 			total_development = 100
 		}
+		or = {
+			development = 10
+			any_friendly_coast_border_province = {
+				feudalism = 100
+			}
+		}
 	}
 
 	embracement_speed = {
@@ -507,6 +513,13 @@ renaissance = {
 	can_embrace = {
 		owner = { 
 			has_institution = feudalism
+		}
+		or = {
+			development = 10
+			any_friendly_coast_border_province = {
+				renaissance = 100
+			}
+			is_capital = yes
 		}
 	}
 	
@@ -1764,7 +1777,18 @@ global_trade = {
 	
 	
 	can_embrace = {
-		always = yes
+		or = {
+			province_trade_power = 20
+			and = {
+				any_friendly_coast_border_province = {
+					global_trade = 100
+				}
+				province_trade_power = 10
+			}
+			owner = {
+				trade_income_percentage = 0.4
+			}
+		}
 	}
 
 	
@@ -1776,15 +1800,15 @@ global_trade = {
 		}
 		modifier = {
 			factor = 0.2 #Not Scaled
-			province_trade_power = 25
+			province_trade_power = 30
 		}
 		modifier = {
 			factor = 0.3 #Not Scaled
-			province_trade_power = 35
+			province_trade_power = 45
 		}
 		modifier = {
 			factor = 0.4 #Not Scaled
-			province_trade_power = 45
+			province_trade_power = 60
 		}
 		
 		###
@@ -2426,9 +2450,12 @@ manufactories = {
 	
 	can_embrace = {  ## need a manufactories
 		OR = {
-			custom_trigger_tooltip = {
-				tooltip = has_manufactory_trigger_tooltip
-				has_manufactory_trigger = yes
+			AND = {
+				custom_trigger_tooltip = {
+					tooltip = has_manufactory_trigger_tooltip
+					has_manufactory_trigger = yes
+				}
+				base_production = 7
 			}
 			base_production = 10
 		}
@@ -3032,11 +3059,22 @@ enlightenment = {
 			owner = { has_institution = printing_press }
 			owner = { has_institution = renaissance }
 			OR = {
-				has_building = university
-				development = 15
+				and = {
+					has_building = university
+					development = 20
+				}
+				development = 35
+				and = {
+					any_friendly_coast_border_province = {
+						enlightenment = 100
+					}
+					or = {
+						has_building = university
+						development = 20
+					}
+				}
 			}
 		}
-		
 	}
 
 	
@@ -3585,8 +3623,27 @@ industrialization = {
 			manufactories = 100
 			owner = { has_institution = global_trade }
 			owner = { has_institution = manufactories }
+			or = {
+				owner = {
+					or = {
+						trading_bonus = { trade_goods = coal value = yes }
+						trading_bonus = { trade_goods = iron value = yes }
+						trading_bonus = { trade_goods = cloth value = yes }
+						num_of_trading_bonuses = 4
+					}
+				}
+				base_production = 15
+			}
+			or = {
+				base_production = 15
+				and = {
+					any_friendly_coast_border_province = {
+						industrialization = 100
+					}
+					base_production = 10
+				}
+			}
 		}
-		
 	}
 
 	
