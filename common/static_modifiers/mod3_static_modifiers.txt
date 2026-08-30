@@ -255,6 +255,7 @@ knowledge_sharing = {
 country_development = {
 	horde_unity = -3
 	development_cost_modifier = -0.5
+	advisor_cost = 0.5
 }
 
 non_accepted_culture = {

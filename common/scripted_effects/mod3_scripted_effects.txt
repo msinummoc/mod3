@@ -541,12 +541,12 @@ mod3_development_yearly_effect = {
         else_if = {
             limit = { check_variable = { which = mod3_dev which = mod3_dev_lag } }
             change_variable = { which = mod3_dev_lag value = 0.01 }
-            multiply_variable = { which = mod3_dev_lag value = 1.0005 }
+            multiply_variable = { which = mod3_dev_lag value = 1.001 }
             set_variable = { which = var3 which = mod3_dev }
             subtract_variable = { which = var3 which = mod3_dev_lag }
             if = {
                 limit = { check_variable = { which = var3 value = 0 } }
-                multiply_variable = { which = var3 value = 0.005 }
+                multiply_variable = { which = var3 value = 0.003 }
                 change_variable = { which = mod3_dev_lag which = var3 }
             }
         }
@@ -557,16 +557,16 @@ mod3_development_yearly_effect = {
             limit = {
                 development = 4
             }
-            set_variable = { which = mod3_dice_helper_input value = 0.5 }
+            set_variable = { which = mod3_dice_helper_input value = 0.25 }
             if = {
                 limit = { not = { check_variable = { which = mod3_dev which = mod3_dev_lag } } }
-                multiply_variable = { which = mod3_dice_helper_input value = 0.5 }
+                multiply_variable = { which = mod3_dice_helper_input value = 0.75 }
             }
             if = {
                 limit = { devastation = 1 }
                 export_to_variable = { which = mod3_devast value = trigger_value:devastation }
                 multiply_variable = { which = mod3_devast value = 0.2 }
-                change_variable = { which = mod3_devast value = 6 }
+                change_variable = { which = mod3_devast value = 10 }
                 multiply_variable = { which = mod3_dice_helper_input which = mod3_devast }
             }
 
@@ -666,12 +666,8 @@ mod3_development_yearly_effect = {
             subtract_variable = { which = var3 which = mod3_dev }
             if = {
                 limit = { check_variable = { which = var3 value = 0.5 } }
-                divide_variable = { which = var3 which = mod3_dev_lag }
-                multiply_variable = { which = var3 value = 10 }
-                change_variable = { which = var3 value = 1 }
-                multiply_variable = { which = mod3_dice_helper_input which = var3 }
+                multiply_variable = { which = mod3_dice_helper_input value = 3 }
             }
-
 
             set_variable = { which = var3 which = mod3_dice_helper_input }
             change_variable = { which = var3 value = 128 }

@@ -71,6 +71,8 @@ NDefines.NCountry.CORE_LOSE_CULTURE_GROUP = 800 -- 150
 NDefines.NCountry.PS_ADVANCE_TECH = 800 -- 600
 
 NDefines.NCountry.MAXIMUM_ADVISOR_SKILL = 10 -- 5
+NDefines.NCountry.COUNTRY_DEVELOPMENT_SCALE = 1000 -- 600
+NDefines.NCountry.ADVISOR_COST = 0.75 -- 1
 
 NDefines.NDiplomacy.AE_DISTANCE_BASE = 0.85 -- 0.75
 NDefines.NDiplomacy.PO_DEMAND_PROVINCES_AE = 0.8 
