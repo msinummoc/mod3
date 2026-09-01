@@ -18,12 +18,13 @@ country_event = {
 					has_country_flag = mod3_has_init_flag
 				}
 			}
+			mod3_dip_dev_yearly_before_effect = yes
 			every_country = {
 				country_event = {
 					id = mod3.11
 				}
 			}
-			mod3_dip_dev_yearly_2_effect = yes
+			# mod3_dip_dev_yearly_2_effect = yes
 			mod3_mil_dev_yearly_2_effect = yes
 		}
     }
@@ -104,13 +105,14 @@ country_event = {
 			
 		}
 		
+		mod3_dip_dev_yearly_before_effect = yes
+		
 		every_country = {
 			set_variable = { which = mod3_age_dev_cost which = prev }
 			country_event = {
 				id = mod3.3
 			}
 		}
-		mod3_dip_dev_yearly_2_effect = yes
 		mod3_mil_dev_yearly_2_effect = yes
 		every_country = {
 			country_event = {
@@ -217,6 +219,24 @@ country_event = {
 	}
 	immediate = {
 		mod3_test_effect = yes
+    }
+	
+	option = {
+		
+	}
+}
+
+country_event = {
+	id = mod3.9991
+	title = mod3.999.t
+	desc = mod3.999.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	trigger = {
+	}
+	immediate = {
+		mod3_test2_effect = yes
     }
 	
 	option = {
