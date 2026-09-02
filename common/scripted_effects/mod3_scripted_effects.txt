@@ -487,7 +487,7 @@ mod3_mil_dev_yearly_1_effect = {
         }
     }
     divide_variable = { which = mod3_mil_dev_buff_1 which = mod3_country_province_number }
-    multiply_variable = { which = mod3_mil_dev_buff_1 value = 2 }
+    multiply_variable = { which = mod3_mil_dev_buff_1 value = 1.5 }
     every_owned_province = {
         limit = { is_city = yes }
         set_variable = { which = mod3_mil_dev_buff_1 which = owner }
@@ -560,7 +560,7 @@ mod3_superregion_mil_dev_helper_effect = {
     }
     sqrt_variable = { which = mod3_superregion_province_number }
     divide_variable = { which = mod3_mil_dev_buff_3 which = mod3_superregion_province_number }
-    multiply_variable = { which = mod3_mil_dev_buff_3 value = 0.1 }
+    multiply_variable = { which = mod3_mil_dev_buff_3 value = 0.075 }
     $superregion$ = {
         limit = { is_city = yes }
         set_variable = { which = mod3_mil_dev_buff_3 which = prev }
@@ -586,7 +586,7 @@ mod3_development_yearly_effect = {
 
     if = {
         limit = { ai = yes }
-        change_variable = { which = mod3_global_dev_cost value = -0.1 }
+        change_variable = { which = mod3_global_dev_cost value = -0.15 }
     }
     every_owned_province = {
         limit = { is_city = yes }
