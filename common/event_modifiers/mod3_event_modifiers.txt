@@ -93,6 +93,10 @@ mod3_dev_buff_info = {
 	local_tax_modifier = 0.01
 }
 
+mod3_dev_buff_owner_marker = {
+	province_trade_power_modifier = 0.001
+}
+
 new_mandate_holder = {
 	imperial_mandate = 0.1
 	land_maintenance_modifier = -0.1

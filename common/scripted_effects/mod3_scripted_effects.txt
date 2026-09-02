@@ -155,10 +155,11 @@ mod3_yearly_after_effect = {
             divide_variable = { which = mod3_adm_dev_buff value = 1.4 }
         }
 
-        multiply_variable = { which = mod3_adm_dev_buff value = 1.25 }
+        multiply_variable = { which = mod3_adm_dev_buff value = 1.5 }
 
         set_variable = { which = mod3_mil_dev_buff which = mod3_mil_dev_buff_1 }
         change_variable = { which = mod3_mil_dev_buff which = mod3_mil_dev_buff_2 }
+        change_variable = { which = mod3_mil_dev_buff which = mod3_mil_dev_buff_3 }
 
         # over dev lag
         set_variable = { which = var3 which = mod3_dev }
@@ -181,6 +182,7 @@ mod3_yearly_after_effect = {
         set_variable = { which = mod3_mil_dev_buff_mem which = mod3_mil_dev_buff }
         set_variable = { which = mod3_mil_dev_buff_1_mem which = mod3_mil_dev_buff_1 }
         set_variable = { which = mod3_mil_dev_buff_2_mem which = mod3_mil_dev_buff_2 }
+        set_variable = { which = mod3_mil_dev_buff_3_mem which = mod3_mil_dev_buff_3 }
         set_variable = { which = mod3_dev_lag_debuff_mem which = mod3_dev_lag_debuff }
 
         mod3_apply_dev_cost_modifier_effect = yes
@@ -396,7 +398,12 @@ mod3_dip_dev_yearly_1_effect = {
                     not = { check_variable = { which = mod3_trade_node_loop value = 1 } }
                 }
             }
+
             mod3_trade_share_calc_effect = yes
+            if = {
+                limit = { not = { check_variable = { which = mod3_trade_node_trade_share value = 100 } } }
+                change_variable = { which = mod3_trade_node_trade_share value = 0.05 }
+            }
             set_variable = { which = mod3_trade_node_province_trade_power_025 value = 0 }
             every_trade_node_member_province = {
                 limit = { and = { is_city = yes owned_by = event_target:mod3_dip_dev_country } }
@@ -415,9 +422,11 @@ mod3_dip_dev_yearly_1_effect = {
                 }
             }
             set_variable = { which = mod3_trade_node_numerator which = mod3_trade_node_dip_dev_buff_0 }
+            divide_variable = { which = mod3_trade_node_numerator value = 100 } # 避免乘以贸易份额后数值溢出
             multiply_variable = { which = mod3_trade_node_numerator which = mod3_trade_node_trade_share }
             set_variable = { which = mod3_trade_node_denominator which = mod3_trade_node_province_trade_power_025 }
             change_variable = { which = mod3_trade_node_denominator which = mod3_trade_node_province_trade_power }
+            divide_variable = { which = mod3_trade_node_denominator value = 100 }
             multiply_variable = { which = mod3_trade_node_denominator which = mod3_trade_node_trade_share }
             set_variable = { which = mod3_dip_country_numerator which = mod3_trade_node_numerator }
             set_variable = { which = mod3_dip_country_denominator which = mod3_trade_node_denominator }
@@ -464,81 +473,6 @@ mod3_dip_dev_yearly_1_effect = {
     }
 }
 
-# 各贸易节点结算
-# mod3_dip_dev_yearly_2_effect = {
-#     while = {
-#         limit = { 
-#             any_province = { 
-#                 and = {
-#                     is_city = yes 
-#                     not = { has_province_flag = mod3_dip_flag } 
-#                 } 
-#             } 
-#         }
-#         random_trade_node = {
-#             limit = { 
-#                 any_trade_node_member_province = {
-#                     and = {
-#                         is_city = yes 
-#                         not = { has_province_flag = mod3_dip_flag } 
-#                     } 
-#                 }
-#             }
-#             random_country = {
-#                 limit = { owns = 1 }
-#                 save_event_target_as = mod3_dummy_country
-#                 set_variable = { which = mod3_dip_dev_buff_2 value = 0 }
-#                 set_variable = { which = mod3_province_trade_power value = 0 }
-#             }
-#             every_trade_node_member_province = {
-#                 limit = { is_city = yes }
-#                 export_to_variable = { which = mod3_dip_dev_buff_2 value = trigger_value:base_production }
-#                 multiply_variable = { which = mod3_dip_dev_buff_2 which = mod3_dev_buff_modifier }
-#                 export_to_variable = { which = mod3_province_trade_power value = trigger_value:province_trade_power }
-#                 if = {
-#                     limit = { is_owned_by_trade_company = yes }
-#                     multiply_variable = { which = mod3_province_trade_power value = 0.25 }
-#                 }
-
-#                 export_to_variable = { which = mod3_dev value = trigger_value:development }
-#                 set_variable = { which = var2 which = mod3_dev }
-#                 multiply_variable = { which = var2 which = mod3_dev }
-#                 multiply_variable = { which = var2 which = mod3_dev }
-#                 divide_variable = { which = var2 value = 200 }
-
-#                 change_variable = { which = mod3_province_trade_power which = var2 }
-                
-#                 # set_variable = { which = var1 value = 10 }
-#                 # multiply_variable = { which = var1 which = mod3_province_trade_power }
-#                 # change_variable = { which = var1 value = 200 }
-#                 # set_variable = { which = var2 which = mod3_province_trade_power }
-#                 # change_variable = { which = var2 value = 200 }
-#                 # divide_variable = { which = var1 which = var2 }
-#                 # multiply_variable = { which = mod3_dip_dev_buff_2 which = var1 }
-#                 # multiply_variable = { which = mod3_dip_dev_buff_2 value = 0.25 }
-#                 event_target:mod3_dummy_country = {
-#                     change_variable = { which = mod3_dip_dev_buff_2 which = prev }
-#                     change_variable = { which = mod3_province_trade_power which = prev }
-#                 }
-#             }
-#             event_target:mod3_dummy_country = {
-#                 multiply_variable = { which = mod3_dip_dev_buff_2 value = 2 }
-#                 divide_variable = { which = mod3_dip_dev_buff_2 which = mod3_province_trade_power }
-#             }
-#             every_trade_node_member_province = {
-#                 limit = { is_city = yes }
-#                 event_target:mod3_dummy_country = {
-#                     prev = {
-#                         set_variable = { which = mod3_dip_dev_buff_2 which = prev }
-#                     }
-#                 }
-#                 multiply_variable = { which = mod3_dip_dev_buff_2 which = mod3_province_trade_power }
-#                 set_province_flag = mod3_dip_flag
-#             }
-#         }
-#     }
-#     every_province = { clr_province_flag = mod3_dip_flag }
-# }
 
 # 按国界结算
 mod3_mil_dev_yearly_1_effect = {
@@ -553,7 +487,7 @@ mod3_mil_dev_yearly_1_effect = {
         }
     }
     divide_variable = { which = mod3_mil_dev_buff_1 which = mod3_country_province_number }
-    multiply_variable = { which = mod3_mil_dev_buff_1 value = 4 }
+    multiply_variable = { which = mod3_mil_dev_buff_1 value = 2 }
     every_owned_province = {
         limit = { is_city = yes }
         set_variable = { which = mod3_mil_dev_buff_1 which = owner }
@@ -561,13 +495,13 @@ mod3_mil_dev_yearly_1_effect = {
 
 }
 
-# 各地区结算
+# 各地区结算 分为地区和次大陆两种
 mod3_mil_dev_yearly_2_effect = {
     every_province = {
         clr_province_flag = mod3_mil_flag
     }
     every_province = {
-        limit = { not = { has_province_flag = mod3_mil_flag }}
+        limit = { and = {is_city = yes not = { has_province_flag = mod3_mil_flag } } }
         export_to_variable = { which = mod3_mil_dev_buff_2 value = trigger_value:base_manpower }
         set_variable = { which = mod3_region_province_number value = 1 }
         region = {
@@ -584,12 +518,52 @@ mod3_mil_dev_yearly_2_effect = {
         # 除以省份数量的平方
         sqrt_variable = { which = mod3_region_province_number }
         divide_variable = { which = mod3_mil_dev_buff_2 which = mod3_region_province_number }
-        multiply_variable = { which = mod3_mil_dev_buff_2 value = 0.6 }
+        multiply_variable = { which = mod3_mil_dev_buff_2 value = 0.3 }
 
         region = {
             set_variable = { which = mod3_mil_dev_buff_2 which = prev }
             set_province_flag = mod3_mil_flag
         }
+    }
+    every_province = {
+        clr_province_flag = mod3_mil_flag
+    }
+    mod3_superregion_mil_dev_helper_effect = { superregion = india_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = china_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = europe_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = eastern_europe_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = persia_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = tartary_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = far_east_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = east_indies_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = near_east_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = north_america_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = south_america_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = central_america_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = andes_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = oceania_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = africa_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = southern_africa_superregion }
+    mod3_superregion_mil_dev_helper_effect = { superregion = new_world_superregion }
+}
+
+mod3_superregion_mil_dev_helper_effect = {
+    set_variable = { which = mod3_superregion_province_number value =  0 }
+    set_variable = { which = mod3_mil_dev_buff_3 value = 0 }
+    $superregion$ = {
+        limit = { is_city = yes }
+        export_to_variable = { which = mod3_mil_dev_buff_3 value = trigger_value:base_manpower }
+        prev = {
+            change_variable = { which = mod3_superregion_province_number value = 1 }
+            change_variable = { which = mod3_mil_dev_buff_3 which = prev }
+        }
+    }
+    sqrt_variable = { which = mod3_superregion_province_number }
+    divide_variable = { which = mod3_mil_dev_buff_3 which = mod3_superregion_province_number }
+    multiply_variable = { which = mod3_mil_dev_buff_3 value = 0.1 }
+    $superregion$ = {
+        limit = { is_city = yes }
+        set_variable = { which = mod3_mil_dev_buff_3 which = prev }
     }
 }
 
@@ -640,6 +614,11 @@ mod3_development_yearly_effect = {
         change_variable = { which = mod3_local_dev_cost value = 1 }
         change_variable = { which = mod3_local_dev_cost_mod value = 1 }
         multiply_variable = { which = mod3_local_dev_cost which = mod3_local_dev_cost_mod }
+
+        if = {
+            limit = { not = { check_variable = { which = mod3_local_dev_cost value = 0.1 } } }
+            set_variable = { which = mod3_local_dev_cost value = 0.1 }
+        }
         export_to_variable = { which = mod3_adm_dev value = trigger_value:base_tax }
         export_to_variable = { which = mod3_dip_dev value = trigger_value:base_production }
         export_to_variable = { which = mod3_mil_dev value = trigger_value:base_manpower }
@@ -874,7 +853,6 @@ mod3_development_yearly_effect = {
     }
 }
 
-
 mod3_reevalution_effect = {
     # over dev lag
     export_to_variable = { which = mod3_dev value = trigger_value:development }
@@ -899,6 +877,50 @@ mod3_reevalution_effect = {
 }
 
 mod3_apply_dev_cost_modifier_effect = {
+    set_variable = { which = mod3_dev_buff_applied_target which = mod3_dev_buff }
+    if = {
+        limit = { not = { check_variable = { which = mod3_dev_buff_applied_target value = 0 } } }
+        multiply_variable = { which = mod3_dev_buff_applied_target value = -1 }
+        round_variable = { which = mod3_dev_buff_applied_target value = -1 }
+        multiply_variable = { which = mod3_dev_buff_applied_target value = -1 }
+    }
+    else = { round_variable = { which = mod3_dev_buff_applied_target value = -1 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_applied_target value = 2048 } } set_variable = { which = mod3_dev_buff_applied_target value = 2047 } }
+    else_if = { limit = { not = { check_variable = { which = mod3_dev_buff_applied_target value = -2047 } } } set_variable = { which = mod3_dev_buff_applied_target value = -2047 } }
+    if = {
+        limit = { not = { has_province_modifier = mod3_dev_buff_owner_marker } }
+        mod3_clear_dev_cost_modifiers_effect = yes
+        set_variable = { which = mod3_dev_buff_applied value = 0 }
+        add_province_modifier = { name = mod3_dev_buff_owner_marker duration = -1 hidden = yes }
+    }
+    if = {
+        limit = {
+            not = {
+                and = {
+                    check_variable = { which = mod3_dev_buff_applied_target which = mod3_dev_buff_applied }
+                    check_variable = { which = mod3_dev_buff_applied which = mod3_dev_buff_applied_target }
+                }
+            }
+        }
+        set_variable = { which = mod3_dev_buff_modifier_work which = mod3_dev_buff_applied }
+        if = {
+            limit = { not = { check_variable = { which = mod3_dev_buff_modifier_work value = 0 } } }
+            multiply_variable = { which = mod3_dev_buff_modifier_work value = -1 }
+            mod3_remove_dev_cost_debuff_effect = yes
+        }
+        else = { mod3_remove_dev_cost_buff_effect = yes }
+        set_variable = { which = mod3_dev_buff_applied which = mod3_dev_buff_applied_target }
+        set_variable = { which = mod3_dev_buff_modifier_work which = mod3_dev_buff_applied_target }
+        if = {
+            limit = { not = { check_variable = { which = mod3_dev_buff_modifier_work value = 0 } } }
+            multiply_variable = { which = mod3_dev_buff_modifier_work value = -1 }
+            mod3_apply_dev_cost_debuff_effect = yes
+        }
+        else = { mod3_apply_dev_cost_buff_effect = yes }
+    }
+}
+
+mod3_clear_dev_cost_modifiers_effect = {
     remove_province_modifier = mod3_buff_10
     remove_province_modifier = mod3_buff_9
     remove_province_modifier = mod3_buff_8
@@ -921,68 +943,91 @@ mod3_apply_dev_cost_modifier_effect = {
     remove_province_modifier = mod3_debuff_2
     remove_province_modifier = mod3_debuff_1
     remove_province_modifier = mod3_debuff_0
-    if = {
-        limit = { not = { check_variable = { which = mod3_dev_buff value = 0 } } }
-        multiply_variable = { which = mod3_dev_buff value = -1 }
-        mod3_apply_dev_cost_debuff_effect = yes
-    }
-    else = {
-        mod3_apply_dev_cost_buff_effect = yes
-    }
+}
+
+mod3_remove_dev_cost_debuff_effect = {
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 1024 } } remove_province_modifier = mod3_debuff_10 subtract_variable = { which = mod3_dev_buff_modifier_work value = 1024 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 512 } } remove_province_modifier = mod3_debuff_9 subtract_variable = { which = mod3_dev_buff_modifier_work value = 512 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 256 } } remove_province_modifier = mod3_debuff_8 subtract_variable = { which = mod3_dev_buff_modifier_work value = 256 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 128 } } remove_province_modifier = mod3_debuff_7 subtract_variable = { which = mod3_dev_buff_modifier_work value = 128 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 64 } } remove_province_modifier = mod3_debuff_6 subtract_variable = { which = mod3_dev_buff_modifier_work value = 64 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 32 } } remove_province_modifier = mod3_debuff_5 subtract_variable = { which = mod3_dev_buff_modifier_work value = 32 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 16 } } remove_province_modifier = mod3_debuff_4 subtract_variable = { which = mod3_dev_buff_modifier_work value = 16 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 8 } } remove_province_modifier = mod3_debuff_3 subtract_variable = { which = mod3_dev_buff_modifier_work value = 8 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 4 } } remove_province_modifier = mod3_debuff_2 subtract_variable = { which = mod3_dev_buff_modifier_work value = 4 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 2 } } remove_province_modifier = mod3_debuff_1 subtract_variable = { which = mod3_dev_buff_modifier_work value = 2 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 1 } } remove_province_modifier = mod3_debuff_0 subtract_variable = { which = mod3_dev_buff_modifier_work value = 1 } }
+}
+
+mod3_remove_dev_cost_buff_effect = {
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 1024 } } remove_province_modifier = mod3_buff_10 subtract_variable = { which = mod3_dev_buff_modifier_work value = 1024 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 512 } } remove_province_modifier = mod3_buff_9 subtract_variable = { which = mod3_dev_buff_modifier_work value = 512 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 256 } } remove_province_modifier = mod3_buff_8 subtract_variable = { which = mod3_dev_buff_modifier_work value = 256 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 128 } } remove_province_modifier = mod3_buff_7 subtract_variable = { which = mod3_dev_buff_modifier_work value = 128 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 64 } } remove_province_modifier = mod3_buff_6 subtract_variable = { which = mod3_dev_buff_modifier_work value = 64 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 32 } } remove_province_modifier = mod3_buff_5 subtract_variable = { which = mod3_dev_buff_modifier_work value = 32 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 16 } } remove_province_modifier = mod3_buff_4 subtract_variable = { which = mod3_dev_buff_modifier_work value = 16 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 8 } } remove_province_modifier = mod3_buff_3 subtract_variable = { which = mod3_dev_buff_modifier_work value = 8 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 4 } } remove_province_modifier = mod3_buff_2 subtract_variable = { which = mod3_dev_buff_modifier_work value = 4 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 2 } } remove_province_modifier = mod3_buff_1 subtract_variable = { which = mod3_dev_buff_modifier_work value = 2 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 1 } } remove_province_modifier = mod3_buff_0 subtract_variable = { which = mod3_dev_buff_modifier_work value = 1 } }
 }
 
 mod3_apply_dev_cost_debuff_effect = {
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 1024 } } add_province_modifier = { name = mod3_debuff_10 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 1024 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 512 } } add_province_modifier = { name = mod3_debuff_9 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 512 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 256 } } add_province_modifier = { name = mod3_debuff_8 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 256 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 128 } } add_province_modifier = { name = mod3_debuff_7 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 128 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 64 } } add_province_modifier = { name = mod3_debuff_6 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 64 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 32 } } add_province_modifier = { name = mod3_debuff_5 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 32 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 16 } } add_province_modifier = { name = mod3_debuff_4 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 16 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 8 } } add_province_modifier = { name = mod3_debuff_3 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 8 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 4 } } add_province_modifier = { name = mod3_debuff_2 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 4 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 2 } } add_province_modifier = { name = mod3_debuff_1 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 2 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 1 } } add_province_modifier = { name = mod3_debuff_0 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 1 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 1024 } } add_province_modifier = { name = mod3_debuff_10 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 1024 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 512 } } add_province_modifier = { name = mod3_debuff_9 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 512 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 256 } } add_province_modifier = { name = mod3_debuff_8 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 256 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 128 } } add_province_modifier = { name = mod3_debuff_7 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 128 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 64 } } add_province_modifier = { name = mod3_debuff_6 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 64 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 32 } } add_province_modifier = { name = mod3_debuff_5 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 32 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 16 } } add_province_modifier = { name = mod3_debuff_4 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 16 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 8 } } add_province_modifier = { name = mod3_debuff_3 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 8 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 4 } } add_province_modifier = { name = mod3_debuff_2 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 4 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 2 } } add_province_modifier = { name = mod3_debuff_1 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 2 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 1 } } add_province_modifier = { name = mod3_debuff_0 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 1 } }
 }
 
 mod3_apply_dev_cost_buff_effect = {
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 1024 } } add_province_modifier = { name = mod3_buff_10 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 1024 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 512 } } add_province_modifier = { name = mod3_buff_9 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 512 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 256 } } add_province_modifier = { name = mod3_buff_8 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 256 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 128 } } add_province_modifier = { name = mod3_buff_7 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 128 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 64 } } add_province_modifier = { name = mod3_buff_6 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 64 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 32 } } add_province_modifier = { name = mod3_buff_5 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 32 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 16 } } add_province_modifier = { name = mod3_buff_4 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 16 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 8 } } add_province_modifier = { name = mod3_buff_3 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 8 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 4 } } add_province_modifier = { name = mod3_buff_2 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 4 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 2 } } add_province_modifier = { name = mod3_buff_1 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 2 } }
-    if = { limit = { check_variable = { which = mod3_dev_buff value = 1 } } add_province_modifier = { name = mod3_buff_0 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff value = 1 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 1024 } } add_province_modifier = { name = mod3_buff_10 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 1024 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 512 } } add_province_modifier = { name = mod3_buff_9 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 512 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 256 } } add_province_modifier = { name = mod3_buff_8 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 256 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 128 } } add_province_modifier = { name = mod3_buff_7 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 128 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 64 } } add_province_modifier = { name = mod3_buff_6 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 64 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 32 } } add_province_modifier = { name = mod3_buff_5 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 32 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 16 } } add_province_modifier = { name = mod3_buff_4 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 16 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 8 } } add_province_modifier = { name = mod3_buff_3 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 8 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 4 } } add_province_modifier = { name = mod3_buff_2 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 4 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 2 } } add_province_modifier = { name = mod3_buff_1 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 2 } }
+    if = { limit = { check_variable = { which = mod3_dev_buff_modifier_work value = 1 } } add_province_modifier = { name = mod3_buff_0 duration = -1 hidden = yes } subtract_variable = { which = mod3_dev_buff_modifier_work value = 1 } }
 }
 
 mod3_test_effect = {
 
     set_variable = { which = mod3_dip_dev_buff_mem value = 0 }
-    set_variable = { which = mod3_dip_dev_buff_0 value = 0 }
+    set_variable = { which = mod3_adm_dev_buff_mem value = 0 }
+    set_variable = { which = mod3_mil_dev_buff_mem value = 0 }
     every_province = {
         limit = { is_city = yes }
-        export_to_variable = { which = mod3_dip_dev_buff_0 value = trigger_value:base_production }
-        multiply_variable = { which = mod3_dip_dev_buff_0 which = mod3_dev_buff_modifier }
-
         prev = {
-            change_variable = { which = mod3_dip_dev_buff_0 which = prev }
+            change_variable = { which = mod3_adm_dev_buff_mem which = prev }
             change_variable = { which = mod3_dip_dev_buff_mem which = prev }
+            change_variable = { which = mod3_mil_dev_buff_mem which = prev }
         }
     }
 }
 
 mod3_test2_effect = {
     set_variable = {
-        which = test3
+        which = test1
+        which = mod3_adm_dev_buff_mem
+    }
+    set_variable = {
+        which = test1
         which = mod3_dip_dev_buff_mem
     }
     set_variable = {
-        which = test4
-        which = mod3_dip_dev_buff_0
+        which = test1
+        which = mod3_mil_dev_buff_mem
     }
 }
 
