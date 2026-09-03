@@ -119,6 +119,15 @@ mod3_yearly_effect = {
         else = {
             set_variable = { which = mod3_dev_buff_modifier value = 0.3 }
         }
+
+        # 荒废度降低贡献值 100%荒废度导致不贡献 对人力贡献不产生影响
+        if = {
+            limit = { devastation = 1 }
+            export_to_variable = { which = mod3_devast value = trigger_value:devastation }
+            subtract_variable = { which = mod3_devast value = 100 }
+            multiply_variable = { which = mod3_devast value = -0.01 }
+            multiply_variable = { which = mod3_dev_buff_modifier which = mod3_devast }
+        }
     }
 
     mod3_adm_dev_yearly_effect = yes
@@ -754,7 +763,7 @@ mod3_development_yearly_effect = {
                         add_base_manpower = -1 
                     }
                 }
-                add_devastation = -10
+                # add_devastation = -10
                 set_variable = { which = var4 value = 0 }
             }
         }
