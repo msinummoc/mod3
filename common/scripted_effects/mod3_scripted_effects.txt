@@ -36,6 +36,27 @@ mod3_init_effect = {
                 add_base_production = 1
             }
         }
+        else_if = {
+            limit = { 
+                capital_scope = { superregion = india_superregion } 
+                total_development = 50
+            }
+            capital_scope = {
+                add_base_manpower = 1
+                add_base_tax = 1
+                add_base_production = 1
+            }
+        }
+        else_if = {
+            limit = {
+                any_owned_province = { culture = polish }
+            }
+            every_owned_province = {
+                limit = { development = 10 culture = polish }
+                add_base_production = -1
+                add_base_tax = -1
+            }
+        }
     }
     mod3_yearly_effect = yes
     every_owned_province = {
