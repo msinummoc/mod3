@@ -3549,8 +3549,8 @@ industrialization = {
 				has_dlc = "Rule Britannia"
 				NOT = { is_year = 1780 } #just in case no one develops their coal provinces
 			}
-			OR = {
-				AND = {
+			owner = {
+				any_owned_province = {
 					has_building = furnace
 					OR = {
 						development = 50
@@ -3564,8 +3564,15 @@ industrialization = {
 						}
 					}
 				}
+			}
+			OR = {
+				development = 55
 				AND = {
-					development = 60
+					development = 45
+					is_year = 1755
+				}
+				AND = {
+					development = 35
 					is_year = 1765
 				}
 			}

@@ -185,7 +185,9 @@ mod3_yearly_after_effect = {
             divide_variable = { which = mod3_adm_dev_buff value = 1.4 }
         }
 
-        multiply_variable = { which = mod3_adm_dev_buff value = 1.5 }
+        set_variable = { which = mod3_adm_province_number value = 0 }
+
+        multiply_variable = { which = mod3_adm_dev_buff value = 1 }
 
         set_variable = { which = mod3_mil_dev_buff which = mod3_mil_dev_buff_1 }
         change_variable = { which = mod3_mil_dev_buff which = mod3_mil_dev_buff_2 }
