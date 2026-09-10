@@ -1,0 +1,63 @@
+country_decisions = {
+
+	mod3_remove_trash_building = {
+		major = yes
+		potential = {
+			not = { ai = yes }
+		}
+		allow = {
+			always = yes
+		}
+		effect = {
+			every_owned_province = {
+				limit = {
+					not = {
+						and = {
+							or = {
+								trade_goods = gold
+								has_building = manufactory
+								has_building = furnace
+							}
+							or = {
+								has_building = temple
+								has_building = cathedral
+							}
+							or = {
+								has_building = workshop
+								has_building = counting_house
+							}
+							or = {
+								has_building = regimental_camp
+								has_building = conscription_center
+							}
+							or = {
+								has_port = no
+								has_building = shipyard
+								has_building = grand_shipyard
+							}
+						}
+					}
+					not = { num_free_building_slots = 1 }
+				}
+				if = {
+					limit = {
+						not = { province_has_center_of_trade_of_level = 1 }
+					}
+					remove_building = marketplace
+					remove_building = trade_depot
+					remove_building = stock_exchange
+				}
+				remove_building = soldier_households
+				remove_building = ramparts
+				remove_building = impressment_offices
+				remove_building = dock
+				remove_building = drydock
+				remove_building = training_fields
+				remove_building = barracks
+			}
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}
