@@ -689,7 +689,7 @@ mod3_development_yearly_effect = {
             change_variable = { which = mod3_dev_lag value = 0.1 }
         }
         else_if = {
-            limit = { check_variable = { which = mod3_dev which = mod3_dev_lag } }
+            limit = { and = { check_variable = { which = mod3_dev which = mod3_dev_lag  } owner = { primitives = no } } }
             change_variable = { which = mod3_dev_lag value = 0.01 }
             multiply_variable = { which = mod3_dev_lag value = 1.001 }
             set_variable = { which = var3 which = mod3_dev }

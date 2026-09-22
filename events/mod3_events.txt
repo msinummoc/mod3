@@ -69,8 +69,13 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		owns = 1
+		not = { has_country_modifier = mod3_no_more_calc }
 	}
 	immediate = {
+		add_country_modifier = {
+			name = mod3_no_more_calc
+			duration = 354
+		}
 		# 全局变量
 		random_list = {
 			9 = {}
