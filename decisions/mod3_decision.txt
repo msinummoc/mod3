@@ -1,0 +1,54 @@
+country_decisions = {
+
+	mod3_mobilization_up = {
+		major = yes
+		potential = {
+			ai = no
+		}
+		allow = {
+			not = { check_variable = { which = mod3_mobilization_level value = 10 } }
+		}
+		effect = {
+			change_variable = { which = mod3_mobilization_level value = 1 }
+			if = { limit = { check_variable = { which = mod3_mobilization_level value = 10 } } remove_country_modifier = mod3_mobilization_9 add_country_modifier = { name = mod3_mobilization_10 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 9 } } remove_country_modifier = mod3_mobilization_8 add_country_modifier = { name = mod3_mobilization_9 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 8 } } remove_country_modifier = mod3_mobilization_7 add_country_modifier = { name = mod3_mobilization_8 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 7 } } remove_country_modifier = mod3_mobilization_6 add_country_modifier = { name = mod3_mobilization_7 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 6 } } remove_country_modifier = mod3_mobilization_5 add_country_modifier = { name = mod3_mobilization_6 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 5 } } remove_country_modifier = mod3_mobilization_4 add_country_modifier = { name = mod3_mobilization_5 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 4 } } remove_country_modifier = mod3_mobilization_3 add_country_modifier = { name = mod3_mobilization_4 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 3 } } remove_country_modifier = mod3_mobilization_2 add_country_modifier = { name = mod3_mobilization_3 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 2 } } remove_country_modifier = mod3_mobilization_1 add_country_modifier = { name = mod3_mobilization_2 duration = -1 } }
+			else = { remove_country_modifier = mod3_mobilization_0 add_country_modifier = { name = mod3_mobilization_1 duration = -1 } }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+
+	mod3_mobilization_down = {
+		major = yes
+		potential = {
+			ai = no
+		}
+		allow = {
+			check_variable = { which = mod3_mobilization_level value = 1 }
+		}
+		effect = {
+			change_variable = { which = mod3_mobilization_level value = -1 }
+			if = { limit = { check_variable = { which = mod3_mobilization_level value = 9 } } remove_country_modifier = mod3_mobilization_10 add_country_modifier = { name = mod3_mobilization_9 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 8 } } remove_country_modifier = mod3_mobilization_9 add_country_modifier = { name = mod3_mobilization_8 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 7 } } remove_country_modifier = mod3_mobilization_8 add_country_modifier = { name = mod3_mobilization_7 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 6 } } remove_country_modifier = mod3_mobilization_7 add_country_modifier = { name = mod3_mobilization_6 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 5 } } remove_country_modifier = mod3_mobilization_6 add_country_modifier = { name = mod3_mobilization_5 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 4 } } remove_country_modifier = mod3_mobilization_5 add_country_modifier = { name = mod3_mobilization_4 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 3 } } remove_country_modifier = mod3_mobilization_4 add_country_modifier = { name = mod3_mobilization_3 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 2 } } remove_country_modifier = mod3_mobilization_3 add_country_modifier = { name = mod3_mobilization_2 duration = -1 } }
+			else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 1 } } remove_country_modifier = mod3_mobilization_2 add_country_modifier = { name = mod3_mobilization_1 duration = -1 } }
+			else = { remove_country_modifier = mod3_mobilization_1 add_country_modifier = { name = mod3_mobilization_0 duration = -1 } }
+		}
+		ai_will_do = {
+			factor = 0
+		}
+	}
+}

@@ -212,6 +212,26 @@ province_event = {
 	}
 }
 
+# monthly effect
+country_event = {
+	id = mod3.7
+	title = mod3.7.t
+	desc = mod3.7.d
+	picture = INVENTION_eventPicture
+	hidden = yes
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = {
+				ai = yes
+			}
+			mod3_mobilization_effect = yes
+		}
+	}
+	option = {
+		
+	}
+}
 
 country_event = {
 	id = mod3.999
