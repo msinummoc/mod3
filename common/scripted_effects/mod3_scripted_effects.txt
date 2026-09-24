@@ -1100,21 +1100,9 @@ mod3_mobilization_effect = {
             }
             if = {
                 limit = {
-                    army_strength = { who = prev value = 0.5 }
+                    army_strength = { who = prev value = 2.5 }
                 }
-                prev = { change_variable = { which = mod3_mobilization_level_change value = 0.15 } }
-            }
-            else_if = {
-                limit = {
-                    army_strength = { who = prev value = 1 }
-                }
-                prev = { change_variable = { which = mod3_mobilization_level_change value = 0.3 } }
-            }
-            else_if = {
-                limit = {
-                    army_strength = { who = prev value = 1.5 }
-                }
-                prev = { change_variable = { which = mod3_mobilization_level_change value = 0.5 } }
+                prev = { change_variable = { which = mod3_mobilization_level_change value = 1 } }
             }
             else_if = {
                 limit = {
@@ -1124,9 +1112,21 @@ mod3_mobilization_effect = {
             }
             else_if = {
                 limit = {
-                    army_strength = { who = prev value = 2.5 }
+                    army_strength = { who = prev value = 1.5 }
                 }
-                prev = { change_variable = { which = mod3_mobilization_level_change value = 1 } }
+                prev = { change_variable = { which = mod3_mobilization_level_change value = 0.5 } }
+            }
+            else_if = {
+                limit = {
+                    army_strength = { who = prev value = 1 }
+                }
+                prev = { change_variable = { which = mod3_mobilization_level_change value = 0.3 } }
+            }
+            else_if = {
+                limit = {
+                    army_strength = { who = prev value = 0.5 }
+                }
+                prev = { change_variable = { which = mod3_mobilization_level_change value = 0.15 } }
             }
         }
         export_to_variable = { which = mod3_manpower_percentage value = trigger_value:manpower_percentage }
@@ -1182,6 +1182,22 @@ mod3_mobilization_effect = {
             else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 2 } } remove_country_modifier = mod3_mobilization_3 add_country_modifier = { name = mod3_mobilization_2 duration = -1 } }
             else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 1 } } remove_country_modifier = mod3_mobilization_2 add_country_modifier = { name = mod3_mobilization_1 duration = -1 } }
             else = { remove_country_modifier = mod3_mobilization_1 add_country_modifier = { name = mod3_mobilization_0 duration = -1 } }
+        }
+    }
+
+    if = {
+        limit = { is_at_war = yes } 
+        if = {
+            limit = { not ={ treasury = 100 } }
+            add_treasury = 100
+            change_variable = { which = mod3_debt value = 1 }
+        }
+    }
+    else = {
+        while = {
+            limit = { check_variable = { which = mod3_debt value = 1 } }
+            add_treasury = -100
+            subtract_variable = { which = mod3_debt value = 1 }
         }
     }
 }

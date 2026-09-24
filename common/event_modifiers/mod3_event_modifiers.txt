@@ -189,6 +189,7 @@ mod3_mobilization_6 = {
 	war_exhaustion = 0.08
 	war_exhaustion_cost = 0.2
 	global_unrest = 4
+	state_maintenance_modifier = 0.2
 }
 
 mod3_mobilization_7 = {
@@ -203,6 +204,7 @@ mod3_mobilization_7 = {
 	global_unrest = 6
 	war_exhaustion_cost = 0.4
 	global_regiment_cost = -0.05
+	state_maintenance_modifier = 0.4
 }
 
 mod3_mobilization_8 = {
@@ -217,6 +219,7 @@ mod3_mobilization_8 = {
 	global_unrest = 9
 	war_exhaustion_cost = 0.6
 	global_regiment_cost = -0.1
+	state_maintenance_modifier = 0.6
 }
 
 mod3_mobilization_9 = {
@@ -231,6 +234,7 @@ mod3_mobilization_9 = {
 	global_unrest = 12
 	war_exhaustion_cost = 0.8
 	global_regiment_cost = -0.15
+	state_maintenance_modifier = 0.8
 }
 
 
@@ -246,4 +250,5 @@ mod3_mobilization_10 = {
 	global_unrest = 16
 	war_exhaustion_cost = 1
 	global_regiment_cost = -0.2
+	state_maintenance_modifier = 1
 }
