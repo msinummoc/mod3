@@ -124,6 +124,7 @@ city = {
 
 	local_friendly_movement_speed = -0.3
 	local_hostile_movement_speed = -0.3
+	local_defensiveness = 0.5
 }
 
 
@@ -146,6 +147,7 @@ development = {
 	local_tax_modifier = 0.01
 	local_friendly_movement_speed = 0.015
 	local_hostile_movement_speed = 0.015
+	local_state_maintenance_modifier = 0.05
 }
 
 development_scaled = {
@@ -270,6 +272,7 @@ non_accepted_culture = {
 	local_manpower_modifier = -0.33
 	local_sailors_modifier = -0.2
 	local_unrest = 5
+	local_defensiveness = -0.25
 }
 
 
@@ -355,4 +358,41 @@ war_exhaustion = {
 	# mod3
 	war_exhaustion = -0.01
 	land_morale = -0.015
+	defensiveness = -0.02
+}
+
+
+recent_uprising = {
+	local_unrest = -10 # -100
+	picture = "recent_uprising"
+}
+
+
+over_extension = {
+	global_foreign_trade_power = -1.0
+	stability_cost_modifier = 0.5
+	mercenary_cost = 0.5
+	diplomatic_reputation = -2
+	improve_relation_modifier = -0.5
+	global_unrest = 2.5 # 5
+	bureaucrats_influence = 0.5
+	mr_guilds_influence = 0.5
+	yearly_corruption = 0.5
+	ottoman_decadence_gain_modifier = 0.25
+}
+
+local_autonomy = {
+	local_defensiveness = -0.5
+}
+
+local_autonomy_trade_company = {
+	local_defensiveness = -0.5
+}
+
+unrest = {
+	regiment_recruit_speed = 0.1			#10% longer time to build troops for each rr
+	ship_recruit_speed = 0.1
+	local_tax_modifier = -0.02
+
+	local_autonomy = 0.02
 }

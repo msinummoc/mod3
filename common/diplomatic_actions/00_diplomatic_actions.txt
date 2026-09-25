@@ -303,6 +303,9 @@ declarewar = {
                 country_event = { id = flavor_ita.7 }
             }
         }
+
+		# mod3
+		mod3_declare_war_effect = yes
 	}
 }
 

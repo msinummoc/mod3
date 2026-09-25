@@ -109,6 +109,25 @@ country_event = {
 			}
 			
 		}
+
+		save_event_target_as = mod3_army_strength_baseline
+		random_country = {
+			limit = { army_size = 100 }
+			save_event_target_as = mod3_army_strength_baseline
+		}
+		random_country = {
+			limit = { and = { army_size = 10 not = { army_size = 100 } } }
+			save_event_target_as = mod3_army_strength_baseline
+		}
+		random_country = {
+			limit = { and = { army_size = 1 not = { army_size = 10 } } }
+			save_event_target_as = mod3_army_strength_baseline
+		}
+
+		every_country = {
+			mod3_relative_army_strength_calc_effect = yes
+		}
+
 		
 		mod3_dip_dev_yearly_before_effect = yes
 		
@@ -192,6 +211,18 @@ province_event = {
 	is_triggered_only = yes
 	immediate = {
 		if = {
+			limit = { not = { owned_by = controller } }
+			export_to_variable = { which = var1 value = trigger_value:development } 
+			owner = { export_to_variable = { which = var2 value = total_development } }
+			set_variable = { which = var2 which = owner }
+			divide_variable = { which = var1 which = var2 }
+			multiply_variable = { which = var1 value = 8 }
+			owner = { 
+				set_variable = { which = var1 which = prev }
+				change_variable = { which = mod3_mobilization_level_change which = var1 }
+			}
+		}
+		if = {
 			limit = {
 				is_capital = no
 				owner = {
@@ -225,7 +256,7 @@ country_event = {
 			limit = {
 				ai = yes
 			}
-			mod3_mobilization_effect = yes
+			mod3_mobilization_monthly_effect = yes
 		}
 	}
 	option = {

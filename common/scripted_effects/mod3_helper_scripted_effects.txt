@@ -4002,3 +4002,190 @@ mod3_trade_share_calc_effect = {
         }
     }
 }
+
+
+mod3_relative_army_strength_calc_effect = {
+    # Binary-search the 1.5x ladder: 0.10 => 1, 0.15 => 2, and so on.
+    # Start at a middle rung, then narrow to either half; the maximum depth is five checks.
+    if = {
+        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 43.789389 } }
+        if = {
+            limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 1122.274146 } }
+            if = {
+                limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 5681.512866 } }
+                if = {
+                    limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 12783.403949 } }
+                    set_variable = { which = mod3_relative_army_strength value = 30 }
+                }
+                else = {
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 8522.269299 } }
+                        set_variable = { which = mod3_relative_army_strength value = 29 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 28 }
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 2525.116829 } }
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 3787.675244 } }
+                        set_variable = { which = mod3_relative_army_strength value = 27 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 26 }
+                    }
+                }
+                else = {
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 1683.411220 } }
+                        set_variable = { which = mod3_relative_army_strength value = 25 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 24 }
+                    }
+                }
+            }
+        }
+        else = {
+            if = {
+                limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 221.683782 } }
+                if = {
+                    limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 498.788510 } }
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 748.182764 } }
+                        set_variable = { which = mod3_relative_army_strength value = 23 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 22 }
+                    }
+                }
+                else = {
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 332.525673 } }
+                        set_variable = { which = mod3_relative_army_strength value = 21 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 20 }
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 98.526125 } }
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 147.789188 } }
+                        set_variable = { which = mod3_relative_army_strength value = 19 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 18 }
+                    }
+                }
+                else = {
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 65.684084 } }
+                        set_variable = { which = mod3_relative_army_strength value = 17 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 16 }
+                    }
+                }
+            }
+        }
+    }
+    else = {
+        if = {
+            limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 1.708594 } }
+            if = {
+                limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 8.649756 } }
+                if = {
+                    limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 19.461951 } }
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 29.192926 } }
+                        set_variable = { which = mod3_relative_army_strength value = 15 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 14 }
+                    }
+                }
+                else = {
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 12.974634 } }
+                        set_variable = { which = mod3_relative_army_strength value = 13 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 12 }
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 3.844336 } }
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 5.766504 } }
+                        set_variable = { which = mod3_relative_army_strength value = 11 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 10 }
+                    }
+                }
+                else = {
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 2.562891 } }
+                        set_variable = { which = mod3_relative_army_strength value = 9 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 8 }
+                    }
+                }
+            }
+        }
+        else = {
+            if = {
+                limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 0.337500 } }
+                if = {
+                    limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 0.759375 } }
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 1.139062 } }
+                        set_variable = { which = mod3_relative_army_strength value = 7 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 6 }
+                    }
+                }
+                else = {
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 0.506250 } }
+                        set_variable = { which = mod3_relative_army_strength value = 5 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 4 }
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 0.150000 } }
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 0.225000 } }
+                        set_variable = { which = mod3_relative_army_strength value = 3 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 2 }
+                    }
+                }
+                else = {
+                    if = {
+                        limit = { army_strength = { who = event_target:mod3_army_strength_baseline value = 0.100000 } }
+                        set_variable = { which = mod3_relative_army_strength value = 1 }
+                    }
+                    else = {
+                        set_variable = { which = mod3_relative_army_strength value = 0 }
+                    }
+                }
+            }
+        }
+    }
+}

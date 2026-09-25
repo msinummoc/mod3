@@ -34,11 +34,11 @@
 
 -- NDefines.NMilitary.BASE_MP_TO_MANPOWER = 0.35 --0.25
 
--- NDefines.NMilitary.INF_LOOT = 0.4 --0.1
--- NDefines.NMilitary.ART_LOOT = 0.2 --0.05
--- NDefines.NMilitary.CAV_LOOT = 1.2 --0.3
--- NDefines.NMilitary.LOOTED_SCALE = 3 -- 1
--- NDefines.NMilitary.LOOTED_MAX = 20 -- 5
+NDefines.NMilitary.INF_LOOT = 0.4 --0.1
+NDefines.NMilitary.ART_LOOT = 0.2 --0.05
+NDefines.NMilitary.CAV_LOOT = 1.2 --0.3
+NDefines.NMilitary.LOOTED_SCALE = 3 -- 1
+NDefines.NMilitary.LOOTED_MAX = 20 -- 5
 
 -- NDefines.NMilitary.MONTHLY_REINFORCE = 0.066 -- 0.1
 -- NDefines.NMilitary.TRADITION_GAIN_LAND = 40 -- 20
@@ -70,6 +70,10 @@ NDefines.NCountry.NEIGHBOURBONUS_CAP = -0.75 -- -0.75
 NDefines.NCountry.CORE_LOSE_CULTURE_GROUP = 800 -- 150
 NDefines.NCountry.PS_ADVANCE_TECH = 800 -- 600
 
+NDefines.NEconomy.LAND_TECH_MAINTENANCE_IMPACT = 0.04 -- 0.02
+NDefines.NEconomy.NAVAL_TECH_MAINTENANCE_IMPACT = 0.04 -- 0.02
+NDefines.NEconomy.LAND_TECH_MERC_MAINTENANCE_IMPACT = 0.1 -- 0.08
+
 NDefines.NCountry.MAXIMUM_ADVISOR_SKILL = 10 -- 5
 NDefines.NCountry.COUNTRY_DEVELOPMENT_SCALE = 1000 -- 600
 NDefines.NCountry.ADVISOR_COST = 0.75 -- 1
@@ -93,3 +97,7 @@ NDefines.NAI.PEACE_HIGH_WAR_EXHAUSTION_FACTOR = 3 -- 2.0
 
 NDefines.NCountry.REVOLT_TECH_IMPACT = 0.05 -- 0.03
 NDefines.NCountry.REVOLT_TECH_MORALE = 0.02 -- 0.01
+
+NDefines.NAI.ACCEPTABLE_BALANCE_DEFAULT = 1 -- 1.2
+NDefines.NAI.ACCEPTABLE_BALANCE_MULT_FRIEND_IN_COMBAT = 0.6 -- 0.8
+NDefines.NAI.ACCEPTABLE_BALANCE_MULT_OFFENSIVE = 0.85
