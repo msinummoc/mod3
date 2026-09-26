@@ -173,6 +173,12 @@ mod3_yearly_effect = {
 }
 
 mod3_yearly_after_effect = {
+    set_variable = { which = test1 which = test2 }
+    set_variable = { which = test2  value = 0 }
+
+    set_variable = { which = test11 which = mod3_mobilization_level_change }
+    subtract_variable = { which = test11 which = mod3_mobilization_level_change_old }
+    set_variable = { which = mod3_mobilization_level_change_old which = mod3_mobilization_level_change }
     # 在这里汇总计算结果
     every_owned_province = {
         # 对adm进行归一化处理，除以相邻直属州数量的平方根
@@ -1129,7 +1135,7 @@ mod3_mobilization_yearly_effect = {
             limit = {
                 war_with = prev
             }
-            change_variable = { which = mod3_threat value = 6 }
+            change_variable = { which = mod3_threat value = 2 }
         }
         if = {
             limit = {
@@ -1140,31 +1146,31 @@ mod3_mobilization_yearly_effect = {
             subtract_variable = { which = var2 which = var1 }
             if = {
                 limit = { check_variable = { which = var2 value = 4 } }
-                multiply_variable = { which = mod3_threat value = 0.64 }
+                multiply_variable = { which = mod3_threat value = 0.8 }
             }
             else_if = {
                 limit = { check_variable = { which = var2 value = 3 } }
-                multiply_variable = { which = mod3_threat value = 0.32 }
+                multiply_variable = { which = mod3_threat value = 0.7 }
             }
             else_if = {
                 limit = { check_variable = { which = var2 value = 2 } }
-                multiply_variable = { which = mod3_threat value = 0.16 }
+                multiply_variable = { which = mod3_threat value = 0.6 }
             }
             else_if = {
                 limit = { check_variable = { which = var2 value = 1 } }
-                multiply_variable = { which = mod3_threat value = 0.08 }
+                multiply_variable = { which = mod3_threat value = 0.5 }
             }
             else_if = {
                 limit = { check_variable = { which = var2 value = 0 } }
-                multiply_variable = { which = mod3_threat value = 0.04 }
+                multiply_variable = { which = mod3_threat value = 0.4 }
             }
             else_if = {
                 limit = { check_variable = { which = var2 value = -1 } }
-                multiply_variable = { which = mod3_threat value = 0.02 }
+                multiply_variable = { which = mod3_threat value = 0.2 }
             }
             else_if = {
                 limit = { check_variable = { which = var2 value = -2 } }
-                multiply_variable = { which = mod3_threat value = 0.01 }
+                multiply_variable = { which = mod3_threat value = 0.1 }
             }
             else = {
                 set_variable = { which = mod3_threat value = 0 }
@@ -1181,14 +1187,14 @@ mod3_mobilization_yearly_effect = {
     change_variable = { which = mod3_average_unrest value = 2 }
     if = {
         limit = { check_variable = { which = mod3_average_unrest value = 0 } }
-        multiply_variable = { which = mod3_average_unrest value = 0.5 }
+        multiply_variable = { which = mod3_average_unrest value = 1 }
         subtract_variable = { which = var3 which = mod3_average_unrest }
     }
     export_to_variable = { which = mod3_exhaustion value = trigger_value:war_exhaustion }
-    multiply_variable = { which = mod3_exhaustion value = 0.4 }
+    multiply_variable = { which = mod3_exhaustion value = 0.5 }
     subtract_variable = { which = var3 which = mod3_exhaustion }
     export_to_variable = { which = mod3_num_of_debt value = trigger_value:num_of_loans }
-    multiply_variable = { which = mod3_num_of_debt value = -0.1 }
+    multiply_variable = { which = mod3_num_of_debt value = -0.07 }
     change_variable = { which = var3 which = mod3_num_of_debt }
 
     if = {
@@ -1202,11 +1208,14 @@ mod3_mobilization_yearly_effect = {
 
     }
     else = {
-        change_variable = { which = mod3_mobilization_level_change value = -0.1 }
+        set_variable = { which = var4 which = mod3_mobilization_level }
+        multiply_variable = { which = var4 value = -0.05}
+        change_variable = { which = mod3_mobilization_level_change which = var4 }
     }
     change_variable = { which = mod3_mobilization_level_change which = var3 }
     
     
+    set_variable = { which = mod3_mobilization_lock value = 1.5 }
 
 }
 
@@ -1218,9 +1227,11 @@ mod3_mobilization_monthly_effect = {
                 check_variable = { which = mod3_mobilization_level_change value = 1 }
                 not = { check_variable = { which = mod3_mobilization_level_change value = -0.999999 } }
             }
+            check_variable = { which = mod3_mobilization_lock value = 1 }
         }
         if = {
             limit = { check_variable = { which = mod3_mobilization_level_change value = 1 } }
+            change_variable = { which = mod3_mobilization_lock value = -1 }
             change_variable = { which = mod3_mobilization_level_change value = -1 }
             if = {
                 limit = { not = { check_variable = { which = mod3_mobilization_level value = 10 } } }
@@ -1239,6 +1250,7 @@ mod3_mobilization_monthly_effect = {
         }
         else_if = {
             limit = { not = { check_variable = { which = mod3_mobilization_level_change value = -0.999999 } } }
+            change_variable = { which = mod3_mobilization_lock value = -0.15 }
             change_variable = { which = mod3_mobilization_level_change value = 1 }
             if = {
                 limit = { check_variable = { which = mod3_mobilization_level value = 1 } }
@@ -1254,6 +1266,24 @@ mod3_mobilization_monthly_effect = {
                 else_if = { limit = { check_variable = { which = mod3_mobilization_level value = 1 } } remove_country_modifier = mod3_mobilization_2 add_country_modifier = { name = mod3_mobilization_1 duration = -1 } }
                 else = { remove_country_modifier = mod3_mobilization_1 add_country_modifier = { name = mod3_mobilization_0 duration = -1 } }
             }
+        }
+    }
+
+    
+    while = {
+        limit = {
+            or = {
+                check_variable = { which = mod3_mobilization_level_change value = 1 }
+                not = { check_variable = { which = mod3_mobilization_level_change value = -0.999999 } }
+            }
+        }
+        if = {
+            limit = { check_variable = { which = mod3_mobilization_level_change value = 1 } }
+            change_variable = { which = mod3_mobilization_level_change value = -1 }
+        }
+        else_if = {
+            limit = { not = { check_variable = { which = mod3_mobilization_level_change value = -0.999999 } } }
+            change_variable = { which = mod3_mobilization_level_change value = 1 }
         }
     }
     
@@ -1318,17 +1348,26 @@ mod3_declare_war_effect = {
 mod3_test_effect = {
 
     set_variable = { 
-        which = test15
-        which = test2
-    }
-    set_variable = { 
+        which = test0
         which = test1
-        which = test15
     }
     set_variable = {
-        which = test2
-        value = 0
+        which = test3
+        which = mod3_relative_army_strength
     }
+    set_variable = {
+        which = test4
+        which = mod3_mobilization_level
+    }
+    set_variable = {
+        which = test5
+        which = mod3_mobilization_level_change
+    }
+    set_variable = {
+        which = test5
+        which = test11
+    }
+    
 }
 
 mod3_test2_effect = {
