@@ -1127,6 +1127,12 @@ mod3_mobilization_yearly_effect = {
         }
         if = {
             limit = {
+                war_with = prev
+            }
+            change_variable = { which = mod3_threat value = 6 }
+        }
+        if = {
+            limit = {
                 check_variable = { which = mod3_threat value = 0.1 }
             }
             set_variable = { which = var2 which = prev }
@@ -1164,35 +1170,42 @@ mod3_mobilization_yearly_effect = {
                 set_variable = { which = mod3_threat value = 0 }
             }
             change_variable = { which = mod3_mobilization_level_change which = mod3_threat }
-            set_variable = { which = test2 which = mod3_threat }
+            change_variable = { which = test2 which = mod3_threat }
         }
         
     }
+
+    set_variable = { which = var3 value = 0 }
+
+    export_to_variable = { which = mod3_average_unrest value = trigger_value:average_unrest }
+    change_variable = { which = mod3_average_unrest value = 2 }
+    if = {
+        limit = { check_variable = { which = mod3_average_unrest value = 0 } }
+        multiply_variable = { which = mod3_average_unrest value = 0.5 }
+        subtract_variable = { which = var3 which = mod3_average_unrest }
+    }
+    export_to_variable = { which = mod3_exhaustion value = trigger_value:war_exhaustion }
+    multiply_variable = { which = mod3_exhaustion value = 0.4 }
+    subtract_variable = { which = var3 which = mod3_exhaustion }
+    export_to_variable = { which = mod3_num_of_debt value = trigger_value:num_of_loans }
+    multiply_variable = { which = mod3_num_of_debt value = -0.1 }
+    change_variable = { which = var3 which = mod3_num_of_debt }
 
     if = {
         limit = { is_at_war = yes }
         
         export_to_variable = { which = mod3_manpower_percentage value = trigger_value:manpower_percentage }
         subtract_variable = { which = mod3_manpower_percentage value = 1 }
-        multiply_variable = { which = mod3_manpower_percentage value = -1 }
+        multiply_variable = { which = mod3_manpower_percentage value = -0.5 }
         change_variable = { which = mod3_mobilization_level_change which = mod3_manpower_percentage }
+        multiply_variable = { which = var3 value = 0.2 }
+
     }
     else = {
         change_variable = { which = mod3_mobilization_level_change value = -0.1 }
-        export_to_variable = { which = mod3_average_unrest value = trigger_value:average_unrest }
-        change_variable = { which = mod3_average_unrest value = 2 }
-        if = {
-            limit = { check_variable = { which = mod3_average_unrest value = 0 } }
-            multiply_variable = { which = mod3_average_unrest value = 0.5 }
-            subtract_variable = { which = mod3_mobilization_level_change which = mod3_average_unrest }
-        }
-        export_to_variable = { which = mod3_exhaustion value = trigger_value:war_exhaustion }
-        multiply_variable = { which = mod3_exhaustion value = 0.5 }
-        subtract_variable = { which = mod3_mobilization_level_change which = mod3_exhaustion }
-        export_to_variable = { which = mod3_num_of_debt value = trigger_value:num_of_loans }
-        multiply_variable = { which = mod3_num_of_debt value = -0.1 }
-        change_variable = { which = mod3_mobilization_level_change which = mod3_num_of_debt }
     }
+    change_variable = { which = mod3_mobilization_level_change which = var3 }
+    
     
 
 }
@@ -1303,9 +1316,18 @@ mod3_declare_war_effect = {
 }
 
 mod3_test_effect = {
+
+    set_variable = { 
+        which = test15
+        which = test2
+    }
     set_variable = { 
         which = test1
+        which = test15
+    }
+    set_variable = {
         which = test2
+        value = 0
     }
 }
 
